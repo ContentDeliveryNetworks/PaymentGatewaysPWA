@@ -1,0 +1,78 @@
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .spinner {
+  display: inline-flex;
+  border: 2px solid #000000;
+  --c:no-repeat linear-gradient(#000000 0 0) 50%;
+  background:
+    var(--c) calc(50% - 5px)/5px 5px,
+    var(--c) calc(50% + 5px)/5px 5px;
+}
+.spinner::before,
+.spinner::after {
+  content: "X1 6W ad fdgf dgdfg fdgdfg drgdfg A5 6A D7 45 F5 fg fq f8 w3 f1 r7 8w 4w 17 3H 9C 1X T7 QR 4K A1 6F E8 3S F6 4L";
+  font-size: 30px;
+  font-family: monospace;
+  font-weight: bold;
+  line-height: 1em;
+  height: 1em;
+  width: 2ch;
+  color: #ad191900;
+  text-shadow: 0 0 0 #34ff02;
+  overflow: hidden;
+  margin: 5px 10px; 
+  animation: l3 1s steps(20) infinite;
+}
+.spinner::before {
+  animation-duration: 1s;
+}
+@keyframes l3 {
+  100% {text-shadow: 0 -20em 0 #ff0303}
+}
+
+.ex {
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 20px;
+  background:linear-gradient(90deg,#09e72e 50%,#0000 0) right/200% 100%;
+  animation: l21 12s infinite linear;
+}
+.ex::before {
+  content :"check encryption....";
+  color: #0000;
+  padding: 0 5px;
+  background: inherit;
+  background-image: linear-gradient(90deg,#fff 50%,#000 0);
+  -webkit-background-clip:text;
+          background-clip:text;
+}
+
+@keyframes l21{
+  100%{background-position: left}
+}
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .dropdown-menu {
+                width: 100%;
+                max-width: 300px;
+            }
+            .button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
