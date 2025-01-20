@@ -1,0 +1,281 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>AppKit Mobile</title>
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<link rel="stylesheet" type="text/css" href="styles/Loadin.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">    
+<link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+</head>
+    
+<body class="theme-light">
+    
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div class="ex"></div> 
+    </div>
+    
+<div id="page">
+    
+    <div class="header header-auto-show header-logo-center mb-4 bg-white shadow">
+        <a href="#" class="header-title"><img src="/styles/logo.svg" alt="logo" width="120" height="35"></a>
+    </div>
+
+   
+    
+        
+    <div class="page-content">
+
+         
+        <div class="card card-style">
+            <div class="content">
+                
+                <div class="d-flex">
+                    <div class="mt-1">
+                        <p class="color-highlight font-600 mb-n1">Palo Alto, California</p>
+                        <h1>Enabled Devs</h1>
+                    </div>
+                    <div class="ms-auto">
+                        <img src="images/pictures/34s.jpg" width="60" class="rounded-xl">
+                    </div>
+                </div>
+                
+                <div class="row mb-0 mt-4">                
+                    <h5 class="col-4 text-start font-15">Invoice</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400">#13241</h5>
+                    
+                    <h5 class="col-4 text-start font-15">Bill To</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400">John Doe</h5>
+                    <h5 class="col-4 text-start font-15">Date</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400">15th June 2025</h5>
+                    
+                    <h5 class="col-4 text-start font-15">Address</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400 pb-4">PO Box 13451 Palo Alto Street California, Flat 1235</h5>
+
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="d-flex mb-3">
+                    <div>
+                        <img src="images/pictures/17s.jpg" width="110" class="rounded-s shadow-xl">
+                    </div>
+                    <div class="ps-3 w-100">
+                        <p class="mb-0 color-highlight">1x Item</p>
+                        <h1>$2.150 </h1>
+                        <h5 class="font-500">Your awesome product or service name goes here</h5>
+                    </div>
+                    
+                </div>
+                    
+                <div class="d-flex mb-3">
+                    <div>
+                        <img src="images/pictures/7s.jpg" width="110" class="rounded-s shadow-xl">
+                    </div>
+                    <div class="ps-3 w-100">
+                        <p class="mb-0 color-highlight">2x Item</p>
+                        <h1>$1.150 </h1>
+                        <h5 class="font-500">Your awesome product or service name goes here</h5>
+                    </div>
+                </div>
+                    
+                <div class="divider mt-4"></div>
+                
+                <div class="d-flex mb-3">
+                    <div><h5 class="opacity-50 font-500">Shipping</h5></div>
+                    <div class="ms-auto"><h5>$150 </h5></div>
+                </div>
+                <div class="d-flex mb-3">
+                    <div><h5 class="opacity-50 font-500">Taxes</h5></div>
+                    <div class="ms-auto"><h5>$50 </h5></div>
+                </div>
+                <div class="d-flex mb-3">
+                    <div><h3 class="font-700">Grand Total</h3></div>
+                    <div class="ms-auto"><h3>$3.500 </h3></div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <a href="#" class="btn btn-full btn-l rounded-s font-600 gradient-highlight">Download Invoice in PDF</a>
+                
+            </div>
+        </div>
+
+    
+        <div class="card card-style">
+            <div class="content mb-2">
+              <center>  <h1 class="color-highlight font-600 mb-n1">Payment Method</h1></center><br>
+
+                <div class="divider"></div>
+                <div class="list-group list-custom-large">
+
+
+                    <a href="#" data-toast="ok">
+                        <img src="rs/upi.svg">
+                     UPI<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
+                        <g fill="#20cf00">
+                            <path d="M176 128a48 48 0 1 1-48-48a48 48 0 0 1 48 48" opacity="0.2" />
+                            <path d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12" />
+                        </g>
+                    </svg>
+                        <i class="fa fa-angle-right"></i>
+                    </a>   
+                    
+                    <a href="#" data-toast="error">
+                        <img src="rs/gpay.svg">
+                     G Pay<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
+                        <g fill="#cf0000">
+                            <path d="M176 128a48 48 0 1 1-48-48a48 48 0 0 1 48 48" opacity="0.2" />
+                            <path d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12" />
+                        </g>
+                    </svg>
+                        <i class="fa fa-angle-right"></i>
+                    </a>   
+                    
+
+                   
+
+                                        
+                    <a href="#" data-toast="error">
+                        <img src="rs/jiopay.png">
+                     Jio Money<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
+                        <g fill="#cf0000">
+                            <path d="M176 128a48 48 0 1 1-48-48a48 48 0 0 1 48 48" opacity="0.2" />
+                            <path d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12" />
+                        </g>
+                    </svg>
+                        <i class="fa fa-angle-right"></i>
+                    </a>   
+                    
+
+
+                                        
+                    <a href="#" data-toast="error">
+                        <img src="rs/paytm.svg">
+                     PayTM<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
+                        <g fill="#cf0000">
+                            <path d="M176 128a48 48 0 1 1-48-48a48 48 0 0 1 48 48" opacity="0.2" />
+                            <path d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12" />
+                        </g>
+                    </svg>
+                        <i class="fa fa-angle-right"></i>
+                    </a>   
+                    
+
+
+
+                                        
+                    <a href="#" data-toast="error">
+                        <img src="rs/pp.png">
+                     PhonePe<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
+                        <g fill="#cf0000">
+                            <path d="M176 128a48 48 0 1 1-48-48a48 48 0 0 1 48 48" opacity="0.2" />
+                            <path d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12" />
+                        </g>
+                    </svg>
+                        <i class="fa fa-angle-right"></i>
+                    </a>   
+                    
+
+
+
+                                        
+                    <a href="#" data-toast="error">
+                        <img src="rs/sbi.svg">
+                     SBI<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
+                        <g fill="#cf0000">
+                            <path d="M176 128a48 48 0 1 1-48-48a48 48 0 0 1 48 48" opacity="0.2" />
+                            <path d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12" />
+                        </g>
+                    </svg>
+                        <i class="fa fa-angle-right"></i>
+                    </a>   
+                    
+
+                    <a href="#" data-toast="ok">
+                        <img src="rs/bnb.svg">
+                        Binance USDT<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
+                        <g fill="#20cf00">
+                            <path d="M176 128a48 48 0 1 1-48-48a48 48 0 0 1 48 48" opacity="0.2" />
+                            <path d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12" />
+                        </g>
+                    </svg>
+                        <i class="fa fa-angle-right"></i>
+                    </a>   
+                    
+                    
+                    <a href="#" data-toast="ok">
+                        <img src="rs/btc.svg">
+                        Bitcoin<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
+                        <g fill="#20cf00">
+                            <path d="M176 128a48 48 0 1 1-48-48a48 48 0 0 1 48 48" opacity="0.2" />
+                            <path d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12" />
+                        </g>
+                    </svg>
+                        <i class="fa fa-angle-right"></i>
+                    </a>   
+
+
+
+
+                    <a href="#" data-toast="ok">
+                        <img src="rs/eth.svg">
+                        Ethereum<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
+                        <g fill="#20cf00">
+                            <path d="M176 128a48 48 0 1 1-48-48a48 48 0 0 1 48 48" opacity="0.2" />
+                            <path d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12" />
+                        </g>
+                    </svg>
+                        <i class="fa fa-angle-right"></i>
+                    </a>   
+
+
+
+                    <a href="#" data-toast="ok">
+                        <img src="rs/usdt.svg">
+                        Tether (USDT)<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
+                        <g fill="#20cf00">
+                            <path d="M176 128a48 48 0 1 1-48-48a48 48 0 0 1 48 48" opacity="0.2" />
+                            <path d="M140 128a12 12 0 1 1-12-12a12 12 0 0 1 12 12" />
+                        </g>
+                    </svg>
+                        <i class="fa fa-angle-right"></i>
+                    </a>   
+
+
+       
+                            
+           
+            </div>  
+        </div>
+        
+        <div data-menu-load="Copyright.html"><div class="card card-style">
+
+            </div>
+        </div></div>
+    
+</div>
+<div id="ok" class="snackbar-toast color-white mb-4 bg-green-dark" data-bs-delay="3000" data-bs-autohide="true"><i class="fa fa-check me-3"></i>Great ,Connecting to Payment Channels</div>
+<div id="error" class="snackbar-toast color-white mb-4 bg-red-dark" data-bs-delay="4000" data-bs-autohide="true"><i class="fa fa-times me-3"></i>oh Sorry ! Payment Channels are currently unavailable , Please Select Green Mark Payment Channels</div>
+
+</div>
+</div>
+<style>
+    .avatar {
+      vertical-align: middle;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    </style>
+<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+<script type="text/javascript" src="styles/loadin.js"></script>
+</body>
