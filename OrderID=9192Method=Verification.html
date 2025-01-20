@@ -29,6 +29,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">    
 <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
 </head>
     
 <body class="theme-light">
@@ -40,11 +41,179 @@
     
 <div id="page">
     
-    <div class="header header-auto-show header-logo-center mb-4 bg-white shadow">
+    <div class="header header-logo-center header-logo-center mb-4 bg-white shadow">
         <a href="#" class="header-title"><img src="/styles/logo.svg" alt="logo" width="120" height="35"></a>
     </div>
+    <style>
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+          margin: 0;
+          padding: 0;
+          background: #f4f7f6;
+        }
+    
+        /* Overlay styles */
+        .overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+    
+        /* Popup Styles (iOS style) */
+        .popup {
+          background: white;
+          padding: 20px;
+          border-radius: 12px;
+          text-align: center;
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+          width: 80%;
+          max-width: 400px;
+          transform: translateY(-20px);
+          transition: transform 0.3s ease-in-out;
+        }
+    
+        .popup h2 {
+          margin: 0 0 20px 0;
+          font-size: 18px;
+          font-weight: bold;
+        }
+    
+        .popup button {
+          padding: 10px 20px;
+          margin: 10px;
+          font-size: 16px;
+          cursor: pointer;
+          border: none;
+          border-radius: 8px;
+          transition: background-color 0.3s;
+        }
+    
+        .popup button.yes {
+          background-color: #4CAF50;
+          color: white;
+        }
+    
+        .popup button.no {
+          background-color: #f44336;
+          color: white;
+        }
+    
+        .popup button:hover {
+          opacity: 0.9;
+        }
+    
+        /* Media Queries for Responsiveness */
+        @media (max-width: 600px) {
+          .popup {
+            width: 90%;
+            max-width: 300px;
+          }
+    
+          .popup h2 {
+            font-size: 16px;
+          }
+    
+          .popup button {
+            font-size: 14px;
+            padding: 8px 16px;
+          }
+        }
+      </style>
+    <style>
+       
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #message {
+            font-size: 24px;
+            line-height: 1.5;
+            color: dodgerblue;
+        }
 
-   
+        h1 {
+            margin-top: 20px;
+            font-size: 24px;
+            color: red;
+        }
+    </style>
+
+  
+    
+    <style>
+        /* Basic reset and styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Style for the generated ID box */
+        #container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 300px;
+        }
+
+        #generatedId {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        button {
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        /* iOS-style alert at the top */
+        #iosAlert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: dodgerblue;
+            color: white;
+            margin-top: 12%;
+            font-size: 16px;
+            padding: 12px 20px;
+            text-align: center;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+</style>
     <br><br>
         
         <div class="card card-style">
@@ -54,23 +223,67 @@
 
                     <div class="card card-style bg-green-light">
                         <div class="content">
-                        <center> <h1 class="color-white">Upload Payment Proof</h1> </center>
+                        <center> <h1 class="color-white">Progress</h1> </center>
                         </div>
                             <div class="card card-style ">
                             <div class="content">
-                           
-        
-          
-            <!-- Embedded Tally Form -->
-    <iframe data-tally-src="https://tally.so/embed/nWDkrQ?hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="100" frameborder="0" marginheight="0" marginwidth="0" title="PaymentGateways"></iframe>
-    
+                      
+                                <div class="container" id="content">
+                                    <img src="/rs/error.svg" alt="Placeholder Image" id="image" style="width: 80px; height: 80px;">
+                                    <div id="message"></div>
+                                    <div id="content"></div>
+                                </div>
+       <br>
+    <center><div id="container">
+        <span id="generatedId"></span>
+        <button id="copyButton">Copy</button>
+    </div></center><br>
+  
+           <div class="divider"></div>
 
-           
-          
-             
+           <div class="list-group list-custom-large">
+            <p><img src="/rs/No.svg" width="10px" height="10px">
+                <span style="color: #ff0404;"><b>Do not reload , refresh the page , otherwise payment will cancelled</b></span>
+            </p>
+            
+            <p><img src="/rs/YES.svg" width="200px" height="200px">
+                <span style="color: #2094fc;">If you have any payment related issues, please share the <b> Payment Order ID (POI) </b> with our customer care agents.</span>
+            </p>
+
+            <p><img src="/rs/YES.svg" width="200px" height="200px">
+                <span style="color: #2094fc;">If you have not completed the payment previously, please go back & complete the payment as per the instructions.</span>
+            </p>
+            
+            
+            <p><img src="/rs/No.svg" width="10px" height="10px">
+                <span style="color: #ff0404;">If you have made the payment correctly, don't panic, just wait.</span>
+            </p>
+            
+
+
+            <p><img src="/rs/No.svg" width="10px" height="10px">
+                <span style="color: #ff0404;">Please do not close the browser or HIMAN apps from recent apps while payment verification is in progress.</span>
+            </p>
+            
+
+                        
+            <p><img src="/rs/YES.svg" width="200px" height="200px">
+                <span style="color: #2094fc;">If you don't want to wait, Chat to our <a href="https://t.me/inditeam" target="_blank">customer care agents</a> who will quickly manually verify your valuable payment and confirm it for you.</span>
+            </p>
+
+
+            <p><img src="/rs/No.svg" width="10px" height="10px">
+                <span style="color: #ff0404;">If the payment is unsuccessful even after completing the payment correctly, don't panic. Contact the <a href="https://t.me/inditeam" target="_blank">customer care agents</a> . Provide the agent with the correct information, such as the payment screenshot, 12-digit transaction number, your email address, & Payment Order ID. This will manually verify your payment.</span>
+            </p>
+            
+
+        
+            <div class="divider"></div>
+
             </div>
         </div>
-    </div>      </div>                     
+    </div>  
+    </div>                     
            
             </div>  
         </div>
@@ -84,26 +297,125 @@
 
 </div>
 </div>
-    <!-- Tally Script for Embedding -->
-    <script>
-        var d = document, w = "https://tally.so/widgets/embed.js", v = function() {
-            if ("undefined" != typeof Tally) {
-                Tally.loadEmbeds();
-            } else {
-                d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e) {
-                    e.src = e.dataset.tallySrc;
-                });
-            }
-        };
-        if ("undefined" != typeof Tally) v();
-        else if (d.querySelector('script[src="' + w + '"]') == null) {
-            var s = d.createElement("script");
-            s.src = w;
-            s.onload = v;
-            s.onerror = v;
-            d.body.appendChild(s);
+  <!-- Overlay and Popup -->
+  <div id="overlay" class="overlay">
+    <div class="popup">
+      <h2>Are you sure you want to refresh the page? <br>if you refresh the page data will lose</h2>
+      <button class="yes" onclick="confirmRefresh()">Reday to lose</button>
+      <button class="no" onclick="cancelRefresh()">No</button>
+    </div>
+  </div>
+<div id="iosAlert">ID copied to clipboard!</div>
+<script>
+    let timeLeft = 10; // Timer in seconds
+    const messageElement = document.getElementById('message');
+    const contentElement = document.getElementById('content');
+
+    const timerInterval = setInterval(() => {
+        timeLeft--;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+
+        // Update messageElement content with centered timer
+        messageElement.innerHTML = `Payment Verification<br><center>${minutes}:${seconds < 10 ? '0' : ''}${seconds}</center>`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            contentElement.innerHTML = `
+                <img src="/rs/info.svg" alt="Failure Image" style="width: 80px; height: 80px;">
+                <h1>Sorry,<br>unsuccessful</h1>
+            `;
         }
-    </script>
+    }, 1000);
+</script>
+
+
+<script>
+    // Function to generate a random ID, now starting with '#'
+    function generateUniqueId() {
+        // Generate a unique ID starting with '#'
+        return '#POI' + (25585 + Math.floor(Math.random() * 1000)); // Adjust logic for unique IDs
+    }
+
+    // Display the generated ID
+    const generatedId = generateUniqueId();
+    document.getElementById("generatedId").textContent = generatedId;
+
+    // Function to copy the generated ID to clipboard
+    document.getElementById("copyButton").addEventListener("click", () => {
+        const idText = document.getElementById("generatedId").textContent;
+        navigator.clipboard.writeText(idText).then(() => {
+            // Show iOS-like alert
+            const alert = document.getElementById("iosAlert");
+            alert.style.display = 'block';
+
+            // Hide alert after 2 seconds
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 2000);
+        });
+    });
+</script>
+
+<script>
+    let refreshBlocked = false;
+
+    // Show the overlay when the user tries to refresh the page
+    window.addEventListener('beforeunload', function(event) {
+      if (!refreshBlocked) {
+        event.preventDefault();
+        showOverlay();
+        return ''; // Remove the native confirmation prompt
+      }
+    });
+
+    // Show the overlay and animate the popup
+    function showOverlay() {
+      const overlay = document.getElementById('overlay');
+      const popup = overlay.querySelector('.popup');
+      
+      overlay.style.display = 'flex';
+      setTimeout(() => {
+        overlay.style.opacity = '1';
+        popup.style.transform = 'translateY(0)';
+      }, 10);
+    }
+
+    // Confirm page refresh
+    function confirmRefresh() {
+      refreshBlocked = true;
+      window.location.reload(); // Refresh the page
+    }
+
+    // Cancel refresh and close the overlay
+    function cancelRefresh() {
+      const overlay = document.getElementById('overlay');
+      const popup = overlay.querySelector('.popup');
+      
+      popup.style.transform = 'translateY(-20px)';
+      overlay.style.opacity = '0';
+      
+      setTimeout(() => {
+        overlay.style.display = 'none';
+      }, 300); // Match the duration of the closing animation
+    }
+  </script>
+  <script>if (localStorage.getItem('reloaded')) {
+    if (confirm('Session Expired. Click OK to redirect.')) {
+      window.location.href = "https://abc.com"; // Redirect to abc.com
+    }
+  } else {
+    localStorage.setItem('reloaded', 'true');
+    window.onbeforeunload = function() {
+      localStorage.removeItem('reloaded'); // Clear the flag on page close or navigation
+    };
+  }
+  
+  </script>
+<script>window.onbeforeunload = function() {
+    return "Do not reload Session will Expired.";
+  };
+  </script>
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
 <script type="text/javascript" src="styles/loadin.js"></script>
