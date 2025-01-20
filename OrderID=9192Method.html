@@ -5,14 +5,30 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>AppKit Mobile</title>
+<title>Payment Method</title>
+<link rel="apple-touch-icon" sizes="57x57" href="/Cloud/Ficons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/Cloud/Ficons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/Cloud/Ficons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/Cloud/Ficons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/Cloud/Ficons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/Cloud/Ficons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/Cloud/Ficons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/Cloud/Ficons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/Cloud/Ficons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/Cloud/Ficons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/Cloud/Ficons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/Cloud/Ficons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/Cloud/Ficons/favicon-16x16.png">
+<link rel="manifest" href="/Cloud/Ficons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/Cloud/Ficons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="styles/style.css">
 <link rel="stylesheet" type="text/css" href="styles/Loadin.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">    
 <link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
-<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
 </head>
     
 <body class="theme-light">
@@ -39,75 +55,45 @@
                 
                 <div class="d-flex">
                     <div class="mt-1">
-                        <p class="color-highlight font-600 mb-n1">Palo Alto, California</p>
-                        <h1>Enabled Devs</h1>
+                        <center>  <h1 class="color-highlight font-600 mb-n1">invoice</h1></center><br>
                     </div>
-                    <div class="ms-auto">
-                        <img src="images/pictures/34s.jpg" width="60" class="rounded-xl">
-                    </div>
+                    
                 </div>
                 
                 <div class="row mb-0 mt-4">                
                     <h5 class="col-4 text-start font-15">Invoice</h5>
-                    <h5 class="col-8 text-end font-14 opacity-60 font-400">#13241</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400">#982548</h5>
                     
                     <h5 class="col-4 text-start font-15">Bill To</h5>
-                    <h5 class="col-8 text-end font-14 opacity-60 font-400">John Doe</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400">anonymous</h5>
                     <h5 class="col-4 text-start font-15">Date</h5>
-                    <h5 class="col-8 text-end font-14 opacity-60 font-400">15th June 2025</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400" id="todaysDate"></h5>
                     
                     <h5 class="col-4 text-start font-15">Address</h5>
-                    <h5 class="col-8 text-end font-14 opacity-60 font-400 pb-4">PO Box 13451 Palo Alto Street California, Flat 1235</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400 pb-4">you can't see address, security propos</h5>
 
                 </div>
                 
                 <div class="divider"></div>
-                
+
                 <div class="d-flex mb-3">
-                    <div>
-                        <img src="images/pictures/17s.jpg" width="110" class="rounded-s shadow-xl">
-                    </div>
-                    <div class="ps-3 w-100">
-                        <p class="mb-0 color-highlight">1x Item</p>
-                        <h1>$2.150 </h1>
-                        <h5 class="font-500">Your awesome product or service name goes here</h5>
-                    </div>
-                    
-                </div>
-                    
-                <div class="d-flex mb-3">
-                    <div>
-                        <img src="images/pictures/7s.jpg" width="110" class="rounded-s shadow-xl">
-                    </div>
-                    <div class="ps-3 w-100">
-                        <p class="mb-0 color-highlight">2x Item</p>
-                        <h1>$1.150 </h1>
-                        <h5 class="font-500">Your awesome product or service name goes here</h5>
-                    </div>
-                </div>
-                    
-                <div class="divider mt-4"></div>
-                
-                <div class="d-flex mb-3">
-                    <div><h5 class="opacity-50 font-500">Shipping</h5></div>
-                    <div class="ms-auto"><h5>$150 </h5></div>
+                    <div><h5 class="opacity-50 font-500">Register Fee</h5></div>
+                    <div class="ms-auto"><h5>₹1,999</h5></div>
                 </div>
                 <div class="d-flex mb-3">
-                    <div><h5 class="opacity-50 font-500">Taxes</h5></div>
-                    <div class="ms-auto"><h5>$50 </h5></div>
+                    <div><h5 class="opacity-50 font-500">Gateways Fees</h5></div>
+                    <div class="ms-auto"><h5>₹100</h5></div>
                 </div>
                 <div class="d-flex mb-3">
                     <div><h3 class="font-700">Grand Total</h3></div>
-                    <div class="ms-auto"><h3>$3.500 </h3></div>
+                    <div class="ms-auto"><h3>₹2099 </h3></div>
                 </div>
                 
                 <div class="divider"></div>
                 
-                <a href="#" class="btn btn-full btn-l rounded-s font-600 gradient-highlight">Download Invoice in PDF</a>
                 
             </div>
         </div>
-
     
         <div class="card card-style">
             <div class="content mb-2">
@@ -117,7 +103,7 @@
                 <div class="list-group list-custom-large">
 
 
-                    <a href="#" data-toast="ok">
+                    <a href="https://himanpayment2checkout.pages.dev/OrderID=9192Method=upi.html">
                         <img src="rs/upi.svg">
                      UPI<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
                         <g fill="#20cf00">
@@ -199,7 +185,7 @@
                     </a>   
                     
 
-                    <a href="#" data-toast="ok">
+                    <a href="https://himanpayment2checkout.pages.dev/OrderID=9192Method=binance.html">
                         <img src="rs/bnb.svg">
                         Binance USDT<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
                         <g fill="#20cf00">
@@ -211,7 +197,7 @@
                     </a>   
                     
                     
-                    <a href="#" data-toast="ok">
+                    <a href="https://himanpayment2checkout.pages.dev/OrderID=9192Method=btc.html">
                         <img src="rs/btc.svg">
                         Bitcoin<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
                         <g fill="#20cf00">
@@ -225,7 +211,7 @@
 
 
 
-                    <a href="#" data-toast="ok">
+                    <a href="https://himanpayment2checkout.pages.dev/OrderID=9192Method=eth.html">
                         <img src="rs/eth.svg">
                         Ethereum<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
                         <g fill="#20cf00">
@@ -238,7 +224,7 @@
 
 
 
-                    <a href="#" data-toast="ok">
+                    <a href="https://himanpayment2checkout.pages.dev/OrderID=9192Method=usdt.html">
                         <img src="rs/usdt.svg">
                         Tether (USDT)<svg xmlns="http://www.w3.org/2000/svg" width="4em" height="4em" viewBox="0 0 256 256">
                         <g fill="#20cf00">
@@ -267,6 +253,30 @@
 
 </div>
 </div>
+
+<script>
+    function getOrdinalSuffix(day) {
+        if (day > 3 && day < 21) return "th"; // Special case for 11th-13th
+        switch (day % 10) {
+            case 1: return "st";
+            case 2: return "nd";
+            case 3: return "rd";
+            default: return "th";
+        }
+    }
+
+    function formatDate() {
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.toLocaleString('default', { month: 'long' });
+        const year = today.getFullYear();
+
+        const ordinalSuffix = getOrdinalSuffix(day);
+        return `${day}${ordinalSuffix} ${month} ${year}`;
+    }
+
+    document.getElementById('todaysDate').textContent = formatDate();
+</script>
 <style>
     .avatar {
       vertical-align: middle;
