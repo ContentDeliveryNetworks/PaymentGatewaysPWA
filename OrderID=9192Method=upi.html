@@ -1,0 +1,342 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>Payble Credential</title>
+<link rel="apple-touch-icon" sizes="57x57" href="/Cloud/Ficons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/Cloud/Ficons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/Cloud/Ficons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/Cloud/Ficons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/Cloud/Ficons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/Cloud/Ficons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/Cloud/Ficons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/Cloud/Ficons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/Cloud/Ficons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/Cloud/Ficons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/Cloud/Ficons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/Cloud/Ficons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/Cloud/Ficons/favicon-16x16.png">
+<link rel="manifest" href="/Cloud/Ficons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/Cloud/Ficons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<link rel="stylesheet" type="text/css" href="styles/Loadin.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">    
+<link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+</head>
+    
+<body class="theme-light">
+    
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div class="ex"></div> 
+    </div>
+    
+<div id="page">
+    
+    <div class="header header-auto-show header-logo-center mb-4 bg-white shadow">
+        <a href="#" class="header-title"><img src="/styles/logo.svg" alt="logo" width="120" height="35"></a>
+    </div>
+
+   
+    
+        <style>        .container {
+            margin: 2rem auto;
+            max-width: 600px;
+            padding: 1rem;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .button {
+            background-color: #1E90FF	;
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 1rem 0;
+        }
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color:dodgerblue;
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+        .notification.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .agreement {
+            margin: 1rem 0;
+            color: #ff0303;
+            font-size: 20px;
+        }
+        #timer {
+            font-size: 2em;
+            margin-top: 20px;
+            color: red;
+            font-weight: bold;
+        }</style>
+    <div class="page-content">
+
+    <br><br>
+         
+        <div class="card card-style">
+            <div class="content">
+                
+                <div class="d-flex">
+                    <div class="mt-1">
+                        <center>  <h1 class="color-highlight font-600 mb-n1">invoice</h1></center><br>
+                    </div>
+                    
+                </div>
+                
+                <div class="row mb-0 mt-4">                
+                    <h5 class="col-4 text-start font-15">Invoice</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400">#982548</h5>
+                    
+                    <h5 class="col-4 text-start font-15">Bill To</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400">anonymous</h5>
+                    <h5 class="col-4 text-start font-15">Date</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400" id="todaysDate"></h5>
+                    
+                    <h5 class="col-4 text-start font-15">Address</h5>
+                    <h5 class="col-8 text-end font-14 opacity-60 font-400 pb-4">you can't see address, security propos</h5>
+
+                </div>
+                
+                <div class="divider"></div>
+
+                <div class="d-flex mb-3">
+                    <div><h5 class="opacity-50 font-500">Register Fee</h5></div>
+                    <div class="ms-auto"><h5>₹1,999</h5></div>
+                </div>
+                <div class="d-flex mb-3">
+                    <div><h5 class="opacity-50 font-500">Gateways Fees</h5></div>
+                    <div class="ms-auto"><h5>₹100</h5></div>
+                </div>
+                <div class="d-flex mb-3">
+                    <div><h3 class="font-700">Grand Total</h3></div>
+                    <div class="ms-auto"><h3>₹2099 </h3></div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                
+            </div>
+        </div>
+
+        
+ 
+
+
+        <div class="card card-style">
+            <div class="content mb-2">
+                <center>  <h1 class="color-highlight font-600 mb-n1">Payment Method</h1></center><br>
+                <div class="divider divider-margins"></div>
+             <center>  <p>Please Complete Payment within 15minutes <br> otherwise, it will EXPIRED</p></center>      <div class="divider divider-margins"></div>
+             <center>     <div  id="timer"></div><br></center>      <div class="divider divider-margins"></div>
+                <center><p>When Payment Complete Please,<br>Take Payment Succes Screenshot</p></center><br>
+                <div class="list-group list-custom-large"> 
+ 
+                </div>
+            </div>  
+        </div>
+
+
+
+        
+        <div class="card card-style">
+
+                <div class="divider"></div>
+                <div class="list-group list-custom-large">
+
+                    <div class="card card-style bg-green-light">
+                        <div class="content">
+                        <center> <h1 class="color-white">Account</h1> </center>
+                        </div>
+                            <div class="card card-style ">
+                            <div class="content">
+                                <center>  <p>UPI : <span id="account-number">notfound-contact</span> <button class="button" id="copy-account">Copy UPI</button></p></center>     
+                                <div class="divider mt-3"></div>
+            
+                                <center>  <p>Payble Amount : <span id="routing-number">2099</span> Rs <button class="button" id="copy-routing">Copy Amount</button></p></center>   
+                
+        
+            <div class="content mb-0">
+            
+           
+            <div class="accordion mt-4" id="accordion-2">
+                <div class="card card-style shadow-0 bg-highlight mb-1">
+                    <button class="btn accordion-btn  color-white no-effect" data-bs-toggle="collapse" data-bs-target="#collapse4">
+                        <i class="fa fa-info-circle"></i>
+                        Wrong upi ID or UPI Doesn't work, or i need scannable QR Code
+                        <i class="fa fa-plus font-10 accordion-icon"></i>
+                    </button>
+
+                    <div id="collapse4" class="collapse bg-theme" data-bs-parent="#accordion-2">
+                        <div class="pt-3 pb-3">
+                            <p class="mb-0">Please <a href="https://t.me/inditeam" target="_blank">Click here</a> to direct contact customer  care</p>
+                        </div>
+                    </div>
+                </div>
+             
+            </div>
+        </div>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="agreement">
+                       <center>    <input type="checkbox" id="agreement" />
+                     <label for="agreement">I have Complete Payment</label></center>    
+                        </div>
+                        <div class="divider"></div>
+                        <button class="btn btn-full btn-l rounded-s font-600 gradient-highlight" id="next-step" disabled>Proceed into Last Step!</button>
+                    </div>
+                
+           
+                            
+           
+            </div>  
+        </div>
+        
+        <div data-menu-load="Copyright.html"><div class="card card-style">
+
+            </div>
+        </div></div>
+    
+</div>
+<div id="ok" class="snackbar-toast color-white mb-4 bg-green-dark" data-bs-delay="3000" data-bs-autohide="true"><i class="fa fa-check me-3"></i>Great ,Connecting to Payment Channels</div>
+<div id="error" class="snackbar-toast color-white mb-4 bg-red-dark" data-bs-delay="4000" data-bs-autohide="true"><i class="fa fa-times me-3"></i>oh Sorry ! Payment Channels are currently unavailable , Please Select Green Mark Payment Channels</div>
+
+</div>
+</div>
+<div id="notification" class="notification">Copied!</div>
+
+<script>
+  // Notification Function
+function showNotification(message) {
+const notification = document.getElementById('notification');
+notification.textContent = message;
+notification.classList.add('show');
+setTimeout(() => {
+    notification.classList.remove('show');
+}, 2000);
+}
+
+// Copy Handlers
+document.getElementById('copy-account').addEventListener('click', () => {
+navigator.clipboard.writeText(document.getElementById('account-number').textContent)
+    .then(() => showNotification('UPI copied successfully!'))
+    .catch(err => console.error('Failed to copy please contact:', err));
+});
+
+document.getElementById('copy-routing').addEventListener('click', () => {
+navigator.clipboard.writeText(document.getElementById('routing-number').textContent)
+    .then(() => showNotification('Payable amount copied successfully!'))
+    .catch(err => console.error('Failed to copy:', err));
+});
+
+// Agreement Checkbox Handler
+const agreementCheckbox = document.getElementById('agreement');
+const nextStepButton = document.getElementById('next-step');
+
+agreementCheckbox.addEventListener('change', () => {
+nextStepButton.disabled = !agreementCheckbox.checked;
+});
+
+// Handle click on the next-step button when enabled
+nextStepButton.addEventListener('click', () => {
+if (!nextStepButton.disabled) {
+    window.location.href = '/OrderID/67otkRjevhdexWDFZKslcg==/Redirect/Check.html';
+}
+});
+
+</script>
+
+<script>
+    // Set the date we're counting down to (15 minutes from now)
+    let countDownDate = new Date().getTime() + 15 * 60 * 1000; // 15 minutes from now
+
+    // Update the countdown every 1 second
+    let x = setInterval(function() {
+
+        // Get the current time
+        let now = new Date().getTime();
+
+        // Find the time remaining
+        let distance = countDownDate - now;
+
+        // Calculate minutes and seconds
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the timer div
+        document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+
+        // If the countdown ends, display a message
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "EXPIRED";
+        }
+    }, 1000);
+
+
+</script>
+
+<script>
+    function getOrdinalSuffix(day) {
+        if (day > 3 && day < 21) return "th"; // Special case for 11th-13th
+        switch (day % 10) {
+            case 1: return "st";
+            case 2: return "nd";
+            case 3: return "rd";
+            default: return "th";
+        }
+    }
+
+    function formatDate() {
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.toLocaleString('default', { month: 'long' });
+        const year = today.getFullYear();
+
+        const ordinalSuffix = getOrdinalSuffix(day);
+        return `${day}${ordinalSuffix} ${month} ${year}`;
+    }
+
+    document.getElementById('todaysDate').textContent = formatDate();
+</script>
+
+<style>
+    .avatar {
+      vertical-align: middle;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    </style>
+<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+<script type="text/javascript" src="styles/loadin.js"></script>
+</body>
