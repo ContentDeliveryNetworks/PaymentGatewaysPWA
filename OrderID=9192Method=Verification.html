@@ -305,9 +305,14 @@
       <button class="no" onclick="cancelRefresh()">No</button>
     </div>
   </div>
-<div id="iosAlert">ID copied to clipboard!</div>
+<div id="iosAlert">Payment OrderID copied to clipboard!</div>
+    <script>
+  function confirmRefresh() {
+    window.location.href = "https://himanpayment2checkout.pages.dev/inexpired";
+  }
+</script>
 <script>
-    let timeLeft = 10; // Timer in seconds
+    let timeLeft = 1800; // Timer in seconds
     const messageElement = document.getElementById('message');
     const contentElement = document.getElementById('content');
 
