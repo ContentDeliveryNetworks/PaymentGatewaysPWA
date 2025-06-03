@@ -41,7 +41,19 @@
 
  <link rel="stylesheet" href="/Ac/Block.ccs">
 <script src="/Ac/Block.js"></script>
-
+ <script>
+    // Fetch UPI from external JSON
+    fetch('https://himanpayment2checkout.pages.dev/AccountCredential/UPI.json')
+      .then(response => response.text())
+      .then(text => {
+        const upi = text.replace(/^"(.*)"$/, '$1').trim();
+        document.getElementById("upi-display").textContent = upi;
+      })
+      .catch(error => {
+        console.error("Error fetching UPI:", error);
+        document.getElementById("upi-display").textContent = "Error loading";
+      });
+  </script>
 </head>
     
 <body class="theme-light">
@@ -227,13 +239,19 @@
         }
 </style>
     <br><br>
-        
+         <style>
+    .payment-warning {
+      color: red;
+      font-weight: bold;
+      font-family: sans-serif;
+    }
+  </style>
         <div class="card card-style">
 
                 <div class="divider"></div>
                 <div class="list-group list-custom-large">
 
-                    <div class="card card-style bg-green-light">
+                    <div class="card card-style bg-dark-light">
                         <div class="content">
                         <center> <h1 class="color-white">Progress</h1> </center>
                         </div>
@@ -241,9 +259,14 @@
                             <div class="content">
                       
                                 <div class="container" id="content">
-                                    <img src="/rs/error.svg" alt="Placeholder Image" id="image" style="width: 80px; height: 80px;">
+                                    <img src="/rs/error.svg" alt="error" id="image" style="width: 80px; height: 80px;">
                                     <div id="message"></div>
                                     <div id="content"></div>
+                                  <center>
+    <span class="payment-warning">
+     Please ensure that the payment is made to : <span id="upi-display">searching...</span>
+    </span>
+  </center>
                                 </div>
        <br>
     <center><div id="container">
@@ -280,12 +303,12 @@
 
                         
             <p><img src="/rs/YES.svg" width="200px" height="200px">
-                <span style="color: #2094fc;">If you don't want to wait, Chat to our <a href="mailto:helloplayboys@gmail.com" target="_blank">customer care agents</a> who will quickly manually verify your valuable payment and confirm it for you.</span>
+                <span style="color: #2094fc;">If you don't want to wait, Chat to our <a href="https://t.me/inditeam" target="_blank">customer care agents</a> who will quickly manually verify your valuable payment and confirm it for you.</span>
             </p>
 
 
             <p><img src="/rs/No.svg" width="10px" height="10px">
-                <span style="color: #ff0404;">If the payment is unsuccessful even after completing the payment correctly, don't panic. Contact the <a href="mailto:helloplayboys@gmail.com" target="_blank">customer care agents</a> . Provide the agent with the correct information, such as the payment screenshot, 12-digit transaction number, your email address, & Payment Order ID. This will manually verify your payment.</span>
+                <span style="color: #ff0404;">If the payment is unsuccessful even after completing the payment correctly, don't panic. Contact the <a href="https://t.me/inditeam" target="_blank">customer care agents</a> . Provide the agent with the correct information, such as the payment screenshot, 12-digit transaction number, your email address, & Payment Order ID. This will manually verify your payment.</span>
             </p>
             
 
