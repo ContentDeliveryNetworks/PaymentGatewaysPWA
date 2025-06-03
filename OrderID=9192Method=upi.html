@@ -72,8 +72,6 @@
         }
         .notification {
             position: fixed;
-            top: 20px;
-            left: 50%;
             transform: translateX(-50%);
             background-color:dodgerblue;
             color: #fff;
@@ -178,45 +176,26 @@
                         </div>
                             <div class="card card-style ">
                             <div class="content">
-                                <center>  <p>UPI : <span id="account-number">mittandatta57-4@okaxis</span> <button class="button" id="copy-account">Copy UPI</button></p></center>     
+                                <center>  <p>Account : <span id="account-number"></span> <button class="button" id="copy-account">Copy UPI</button></p></center>     
                                 <div class="divider mt-3"></div>
             
-                                <center>  <p>Payble Amount : <span id="routing-number">2099</span> Rs <button class="button" id="copy-routing">Copy Amount</button></p></center>   
-                
-        
+                                <center>  <p>Payble Amount : <span id="routing-number">999</span> Rs <button class="button" id="copy-routing">Copy Amount</button></p></center>   
+                              <div class="divider mt-3"></div>
+
+                                <center><a href="#" data-menu="scan" class="button" style="color:white;"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 56 56">
+                                    <path fill="#fff" d="M8.383 21.402c1.219 0 1.875-.68 1.875-1.922v-5.53c0-2.438 1.312-3.68 3.656-3.68h5.672c1.219 0 1.898-.68 1.898-1.899c0-1.195-.68-1.875-1.898-1.875h-5.742c-4.875 0-7.36 2.414-7.36 7.242v5.743c0 1.242.68 1.921 1.899 1.921m39.234 0c1.242 0 1.899-.68 1.899-1.922v-5.742c0-4.828-2.438-7.242-7.36-7.242h-5.719c-1.242 0-1.921.68-1.921 1.875c0 1.219.68 1.899 1.921 1.899h5.672c2.297 0 3.633 1.242 3.633 3.68v5.53c0 1.243.68 1.922 1.875 1.922m-20.625 4.57v-8.179c0-.562-.445-1.031-1.031-1.031h-8.156c-.586 0-1.032.468-1.032 1.031v8.18c0 .562.446 1.008 1.032 1.008h8.156c.586 0 1.031-.446 1.031-1.008m4.055-7.171h6.14v6.14h-6.14Zm4.36 4.36v-2.556h-2.555v2.555Zm-12.235 0v-2.556h-2.578v2.555Zm-4.36 7.898h6.141v6.14h-6.14Zm20.11.796v-2.554h-2.555v2.555Zm-7.055 0v-2.554h-2.555v2.555Zm-8.695 3.54V32.84h-2.578v2.554Zm12.234 0V32.84h-2.578v2.554Zm1.031 14.109h5.72c4.921 0 7.359-2.438 7.359-7.266V36.52c0-1.243-.68-1.922-1.899-1.922s-1.875.68-1.875 1.922v5.53c0 2.438-1.336 3.68-3.633 3.68h-5.672c-1.242 0-1.921.68-1.921 1.899c0 1.195.68 1.875 1.921 1.875m-22.593 0h5.742c1.219 0 1.898-.68 1.898-1.875c0-1.219-.68-1.898-1.898-1.898h-5.672c-2.344 0-3.656-1.243-3.656-3.68V36.52c0-1.243-.68-1.922-1.875-1.922c-1.242 0-1.899.68-1.899 1.922v5.718c0 4.852 2.485 7.266 7.36 7.266m18.023-10.57v-2.555h-2.555v2.555Zm7.055 0v-2.555h-2.555v2.555Zm.305-12.961v-8.18c0-.562-.446-1.031-1.032-1.031H30.04c-.586 0-1.031.468-1.031 1.031v8.18c0 .562.445 1.008 1.03 1.008h8.157c.586 0 1.032-.446 1.032-1.008M18.812 18.8h6.141v6.14h-6.14Zm8.18 19.406v-8.18c0-.562-.445-1.007-1.031-1.007h-8.156c-.586 0-1.032.445-1.032 1.007v8.18c0 .563.446 1.031 1.032 1.031h8.156c.586 0 1.031-.468 1.031-1.031" />
+                                </svg> Scan & Pay</a></center> 
             <div class="content mb-0">
             
            
-            <div class="accordion mt-4" id="accordion-2">
-                <div class="card card-style shadow-0 bg-highlight mb-1">
-                    <button class="btn accordion-btn  color-white no-effect" data-bs-toggle="collapse" data-bs-target="#collapse4">
-                        <i class="fa fa-info-circle"></i>
-                        Wrong upi ID or UPI Doesn't work, or i need scannable QR Code
-                        <i class="fa fa-plus font-10 accordion-icon"></i>
-                    </button>
 
-                    <div id="collapse4" class="collapse bg-theme" data-bs-parent="#accordion-2">
-                        <div class="pt-3 pb-3">
-                            <p class="mb-0">Please <a href="https://t.me/inditeam" target="_blank">Click here</a> to direct contact customer  care</p>
-                        </div>
-                    </div>
-                </div>
+           
              
             </div>
         </div>
-                            </div>
-                        </div>
-                    </div>
-                        <div class="agreement">
-                       <center>    <input type="checkbox" id="agreement" />
-                     <label for="agreement">I have Complete Payment</label></center>    
-                        </div>
                         <div class="divider"></div>
-                        <button class="btn btn-full btn-l rounded-s font-600 gradient-highlight" id="next-step" disabled>Proceed into Last Step!</button>
-                    </div>
-                
-           
-                            
+                        <button class="btn btn-full btn-l rounded-s font-600 gradient-red" id="next-step" enable><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 1024 1024"><path fill="#faf7f7" d="M544 864V672h128L512 480L352 672h128v192H320v-1.6c-5.376.32-10.496 1.6-16 1.6A240 240 0 0 1 64 624c0-123.136 93.12-223.488 212.608-237.248A239.81 239.81 0 0 1 512 192a239.87 239.87 0 0 1 235.456 194.752c119.488 13.76 212.48 114.112 212.48 237.248a240 240 0 0 1-240 240c-5.376 0-10.56-1.28-16-1.6v1.6z"/></svg> Proceed Next Step !</button>
+                   <br> </div>                 
            
             </div>  
         </div>
@@ -227,53 +206,89 @@
         </div></div>
     
 </div>
-<div id="ok" class="snackbar-toast color-white mb-4 bg-green-dark" data-bs-delay="3000" data-bs-autohide="true"><i class="fa fa-check me-3"></i>Great ,Connecting to Payment Channels</div>
-<div id="error" class="snackbar-toast color-white mb-4 bg-red-dark" data-bs-delay="4000" data-bs-autohide="true"><i class="fa fa-times me-3"></i>oh Sorry ! Payment Channels are currently unavailable , Please Select Green Mark Payment Channels</div>
+
+
+<div id="scan" 
+class="menu menu-box-modal rounded-m bg-theme" 
+data-menu-width="350"
+data-menu-height="470">
+<div class="menu-title">
+   <h1 class="color-highlight">QR Code</h1>
+   <a href="#" class="close-menu"><i class="fa fa-times-circle"></i></a>
+</div>
+
+<div class="content">
+
+<center><img src="/Ac/TetherUSDT.jpg"  width="85%" height="80%"></center>
+   <div class="row">
+       <div class="col-6">
+           <a href="https://himanpayment2checkout.pages.dev/Ac/TetherUSDT.jpg" target="_blank" class="close-menu btn btn-full gradient-red font-12 btn-m font-600 mt-3 rounded-s">Download QR</a>
+       </div>
+       <div class="col-6">
+           <a href="#" class="close-menu btn btn-full gradient-blue font-12 btn-m font-600 mt-3 rounded-s">Closed</a>
+       </div>
+   </div>
 
 </div>
 </div>
+
+
 <div id="notification" class="notification">Copied!</div>
-
 <script>
   // Notification Function
-function showNotification(message) {
-const notification = document.getElementById('notification');
-notification.textContent = message;
-notification.classList.add('show');
-setTimeout(() => {
-    notification.classList.remove('show');
-}, 2000);
-}
+  function showNotification(message) {
+    const notification = document.getElementById('notification');
+    notification.textContent = message;
+    notification.style.display = 'block';
+    notification.classList.add('show');
+    setTimeout(() => {
+      notification.classList.remove('show');
+      notification.style.display = 'none';
+    }, 2000);
+  }
 
-// Copy Handlers
-document.getElementById('copy-account').addEventListener('click', () => {
-navigator.clipboard.writeText(document.getElementById('account-number').textContent)
-    .then(() => showNotification('UPI copied successfully!'))
-    .catch(err => console.error('Failed to copy please contact:', err));
-});
+  fetch('https://himanpayment2checkout.pages.dev/AccountCredential/UPI.json')
+  .then(response => response.text())
+  .then(text => {
+    const upi = text.replace(/^"(.*)"$/, '$1').trim(); // trim added here
+    document.getElementById("account-number").textContent = upi;
+  })
+  .catch(error => {
+    console.error("Error fetching UPI:", error);
+    document.getElementById("account-number").textContent = "Error loading";
+  });
 
-document.getElementById('copy-routing').addEventListener('click', () => {
-navigator.clipboard.writeText(document.getElementById('routing-number').textContent)
-    .then(() => showNotification('Payable amount copied successfully!'))
-    .catch(err => console.error('Failed to copy:', err));
-});
 
-// Agreement Checkbox Handler
-const agreementCheckbox = document.getElementById('agreement');
-const nextStepButton = document.getElementById('next-step');
+  // Copy Handlers
+  document.getElementById('copy-account').addEventListener('click', () => {
+    navigator.clipboard.writeText(document.getElementById('account-number').textContent)
+      .then(() => showNotification('UPI copied successfully!'))
+      .catch(err => console.error('Failed to copy please contact:', err));
+  });
 
-agreementCheckbox.addEventListener('change', () => {
-nextStepButton.disabled = !agreementCheckbox.checked;
-});
+  document.getElementById('copy-routing')?.addEventListener('click', () => {
+    navigator.clipboard.writeText(document.getElementById('routing-number')?.textContent || '')
+      .then(() => showNotification('Payable amount copied successfully!'))
+      .catch(err => console.error('Failed to copy:', err));
+  });
 
-// Handle click on the next-step button when enabled
-nextStepButton.addEventListener('click', () => {
-if (!nextStepButton.Enabled) {
-    window.location.href = 'https://himanpayment2checkout.pages.dev/OrderID=9192Method=Confirmation.html';
-}
-});
+  // Agreement Checkbox Handler
+  const agreementCheckbox = document.getElementById('agreement');
+  const nextStepButton = document.getElementById('next-step');
 
+  agreementCheckbox?.addEventListener('change', () => {
+    if (nextStepButton) {
+      nextStepButton.disabled = !agreementCheckbox.checked;
+    }
+  });
+
+  nextStepButton?.addEventListener('click', () => {
+    if (!nextStepButton.disabled) {
+      window.location.href = 'https://himanpayment2checkout.pages.dev/OrderID=9192Method=Confirmation.html';
+    }
+  });
 </script>
+
 
 <script>
     // Set the date we're counting down to (15 minutes from now)
@@ -338,6 +353,6 @@ if (!nextStepButton.Enabled) {
     }
     </style>
 <script type="text/javascript" src="scripts/bootstrap.min.js"></script>
-<script type="text/javascript" src="scripts/custom.js"></script>
+<script type="text/javascript" src="https://gigolocallboyplayboyapp.neocities.org/HiMAN_app_file/custom.js"></script>
 <script type="text/javascript" src="styles/loadin.js"></script>
 </body>
