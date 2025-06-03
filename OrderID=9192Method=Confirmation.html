@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
 <title>Order Confirmation Process</title>
   <link rel="preload" as="script" href="https://tally.so/widgets/embed.js">
-  <link rel="preload" as="document" href="https://tally.so/r/nWDkrQ?hideTitle=1&transparentBackground=1&dynamicHeight=1">
+ <link rel="preload" as="document" href="https://tally.so/r/nWDkrQ?hideTitle=1&transparentBackground=1&dynamicHeight=1">
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-CF10YXPBE6"></script>
 <script>
@@ -67,35 +67,40 @@
 
                       
         <br>
+<iframe 
+  src="https://tally.so/embed/nWDkrQ?hideTitle=1&dynamicHeight=1" 
+  width="100%" 
+  height="1154" 
+  frameborder="0" 
+  marginheight="0" 
+  marginwidth="0" 
+  title="PaymentGateways" 
+  loading="eager"  <!-- important to load immediately -->
+  style="border:none; display:block;"
+></iframe>
 
-  <iframe 
-    data-tally-src="https://tally.so/r/nWDkrQ?hideTitle=1&transparentBackground=1&dynamicHeight=1"
-    width="90%" 
-    height="90" 
-    style="border:0; display:block;"
-    frameborder="0" 
-    marginheight="0" 
-    marginwidth="0" 
-    title="Payment" 
-    loading="eager"
-  ></iframe>
-
-  <!-- Load Tally's embed script ASAP for dynamic height -->
-  <script>
-    const d = document, 
-          w = "https://tally.so/widgets/embed.js", 
-          v = () => typeof Tally !== "undefined" ? Tally.loadEmbeds() : null;
-
-    if (typeof Tally !== "undefined") {
-      v();
-    } else if (!d.querySelector(`script[src="${w}"]`)) {
-      const s = d.createElement("script");
+<script>
+  (function(){
+    var d = document,
+        w = "https://tally.so/widgets/embed.js",
+        loadTally = function(){
+          if(typeof Tally !== "undefined"){
+            Tally.loadEmbeds();
+          }
+        };
+    
+    if(typeof Tally !== "undefined"){
+      loadTally();
+    } else if(!d.querySelector('script[src="'+w+'"]')){
+      var s = d.createElement("script");
       s.src = w;
-      s.onload = v;
-      s.onerror = v;
-      d.head.appendChild(s);
+      s.onload = loadTally;
+      s.onerror = loadTally;
+      d.head.appendChild(s);  // append to head for earlier loading
     }
-  </script>
+  })();
+</script>
+
     </div>                     
            
             </div>  
