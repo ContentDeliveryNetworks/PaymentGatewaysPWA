@@ -4,7 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Payment instraction</title>
-  <script async src="https://tally.so/widgets/embed.js"></script>
+ <!-- 1. Warm up the connection early -->
+<link rel="preconnect" href="https://tally.so">
+<link rel="dns-prefetch" href="https://tally.so">
+
+<!-- 2. Preload the script so browser fetches it immediately -->
+<link rel="preload" href="https://tally.so/widgets/embed.js" as="script">
+
+<!-- 3. Load script after DOM is parsed, without blocking rendering -->
+<script defer src="https://tally.so/widgets/embed.js"></script>
+
    <link rel="stylesheet" href="/Ac/Block.ccs">
 <script src="/Ac/Block.js"></script>
   <style>
@@ -120,6 +129,22 @@
       </div>
     </article>
   </main>
+<div id="tally-widget"></div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const el = document.querySelector("#tally-widget");
+  const obs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      const s = document.createElement("script");
+      s.src = "https://tally.so/widgets/embed.js";
+      s.defer = true;
+      document.body.appendChild(s);
+      obs.disconnect();
+    }
+  });
+  obs.observe(el);
+});
+</script>
 
   <script>
     // Countdown timer 60 minutes
