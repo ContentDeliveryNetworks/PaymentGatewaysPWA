@@ -1,51 +1,60 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>Payable Credential</title>
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-CF10YXPBE6"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-CF10YXPBE6');
-</script>
-
-<!-- Favicon & Manifest -->
-<link rel="apple-touch-icon" sizes="180x180" href="/Cloud/Ficons/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/Cloud/Ficons/favicon-32x32.png">
-<link rel="manifest" href="/Cloud/Ficons/manifest.json">
-
-<!-- Stylesheets -->
-<link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="styles/style.css">
-<link rel="stylesheet" type="text/css" href="styles/Loadin.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Payable Invoice</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">    
-<link rel="stylesheet" href="/Ac/Block.ccs">
-
-<script src="/Ac/Block.js"></script>
-
 <style>
-  .button {
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    margin: 1.5rem auto;
+    max-width: 500px;
+    padding: 1.2rem;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 12px;
+}
+h2 {
+    font-weight: 600;
+    text-align: center;
+    color: #333;
+    margin-bottom: 1rem;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+}
+hr {
+    margin: 1rem 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+.button {
     background-color: #1E90FF;
     color: #fff;
     padding: 0.8rem 2rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
-    margin: 1rem 0;
-  }
-  .button:disabled {
+    margin-top: 1rem;
+    width: 100%;
+}
+.button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
-  }
-  .notification {
+}
+.notification {
     position: fixed;
+    top: 10px;
+    left: 50%;
     transform: translateX(-50%);
     background-color: dodgerblue;
     color: #fff;
@@ -54,215 +63,136 @@
     opacity: 0;
     transition: opacity 0.3s, transform 0.3s;
     z-index: 1000;
-  }
-  .notification.show {
+}
+.notification.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
-  }
-  #timer {
-    font-size: 2em;
-    margin-top: 20px;
+}
+#timer {
+    font-size: 1.8rem;
+    margin: 1rem 0;
     color: red;
     font-weight: bold;
-  }
+    text-align: center;
+}
+.agreement {
+    font-size: 1.05rem;
+    cursor: pointer;
+}
+.icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+@media (max-width: 480px) {
+    .container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    .button {
+        font-size: 0.95rem;
+        padding: 0.7rem 1.5rem;
+    }
+}
 </style>
 </head>
-<body class="theme-light">
+<body>
 
-<div id="loading-screen">
-  <div class="spinner"></div>
-  <div class="ex"></div> 
+<div class="container">
+    <h2>Invoice</h2>
+    <div class="row"><div>Invoice ID:</div><div>#982548</div></div>
+    <div class="row"><div>Bill To:</div><div>anonymous</div></div>
+    <div class="row"><div>Date:</div><div id="todaysDate"></div></div>
+    <div class="row"><div>Address:</div><div>you can't see address</div></div>
+    <hr>
+    <div class="row"><div>Register Fee:</div><div>₹<span id="register-fee">0</span></div></div>
+    <div class="row"><div>Gateways Fees:</div><div>₹0</div></div>
+    <div class="row"><div><strong>Grand Total:</strong></div><div><strong>₹<span id="grand-total">0</span></strong></div></div>
 </div>
 
-<div id="page">
-
-  <!-- Header -->
-  <div class="header header-auto-show header-logo-center mb-4 bg-white shadow">
-    <a href="#" class="header-title"><img src="/styles/logo.svg" alt="logo" width="120" height="35"></a>
-  </div>
-
-  <div class="page-content">
-    <br><br>
-
-    <!-- Invoice Card -->
-    <div class="card card-style">
-      <div class="content">
-        <center>
-          <h1 class="color-highlight font-600 mb-n1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><g fill="#4147d5"><path d="..."/></g></svg>
-            Invoice
-          </h1>
-        </center>
-        <br>
-
-        <!-- Invoice Info -->
-        <div class="row mb-0 mt-4">                
-          <h5 class="col-4 text-start font-15">Invoice ID</h5>
-          <h5 class="col-8 text-end font-14 opacity-60 font-400">#982548</h5>
-          <h5 class="col-4 text-start font-15">Bill To</h5>
-          <h5 class="col-8 text-end font-14 opacity-60 font-400">anonymous</h5>
-          <h5 class="col-4 text-start font-15">Date</h5>
-          <h5 class="col-8 text-end font-14 opacity-60 font-400" id="todaysDate"></h5>
-          <h5 class="col-4 text-start font-15">Address</h5>
-          <h5 class="col-8 text-end font-14 opacity-60 font-400 pb-4">you can't see address, security purpose</h5>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- Fees -->
-        <div class="d-flex mb-3">
-          <div><h5 class="opacity-50 font-500">Register Fee</h5></div>
-          <div class="ms-auto"><h5 id=""></h5></div>
-        </div>
-        <div class="d-flex mb-3">
-          <div><h5 class="opacity-50 font-500">Gateway Fees</h5></div>
-          <div class="ms-auto"><h5>₹0</h5></div>
-        </div>
-        <div class="d-flex mb-3">
-          <div><h3 class="font-700">Grand Total</h3></div>
-          <div class="ms-auto"><h3 id=""></h3></div>
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- Payable Amount & Copy -->
-        <center>
-          <p>
-            Payable Amount: <span id=""></span> Rs
-            <button class="button" id="">Copy Amount</button>
-          </p>
-        </center>
-      </div>
-    </div>
-
-    <!-- Payment Instructions -->
-    <div class="card card-style">
-      <div class="content mb-2">
-        <center><h1 class="color-highlight font-600 mb-n1">Payment Instructions</h1></center><br>
-        <div class="divider divider-margins"></div>
-        <center>
-          <p>Please complete payment within 15 minutes. <br>Otherwise, it will EXPIRE.</p>
-        </center>
-        <div class="divider divider-margins"></div>
-        <center><div id="timer"></div><br></center>
-        <div class="divider divider-margins"></div>
-        <center><p>When payment is complete, take a screenshot for confirmation.</p></center><br>
-      </div>
-    </div>
-
-    <!-- Account Card -->
-    <div class="card card-style bg-blue-light">
-      <div class="content">
-        <center><h1 class="color-white">Account</h1></center>
-      </div>
-      <div class="card card-style">
-        <div class="content">
-          <center>
-            <p>Account: <span id="account-number"></span> 
-            <button class="button" id="copy-account">Copy UPI</button></p>
-          </center>
-          <div class="divider mt-3"></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+<div class="container">
+    <h2>Payment Instructions</h2>
+    <p style="text-align:center;">Please complete payment within 15 minutes, otherwise it will EXPIRE</p>
+    <div id="timer"></div>
 </div>
 
-<!-- Notification -->
+<div class="container">
+    <h2>Account Details</h2>
+<p>
+<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 50 50"><rect width="50" height="50" fill="none"/><g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"><path stroke="#344054" d="m35.854 18.75l3.73-5.333l-10.23-7.167l-8.77 12.5zM18.938 8.333L11.625 18.75h8.958L25 12.5z"/><path stroke="#306cfe" d="M41.667 18.75H8.333c-1.15 0-2.083.933-2.083 2.083v20.834c0 1.15.933 2.083 2.083 2.083h33.334c1.15 0 2.083-.933 2.083-2.083V20.833c0-1.15-.933-2.083-2.083-2.083"/><path stroke="#344054" d="M33.333 27.083H43.75v8.334H33.333a2.083 2.083 0 0 1-2.083-2.084v-4.166a2.084 2.084 0 0 1 2.083-2.084"/></g></svg>
+    Account: <span id="account-number">Loading...</span>
+    <button class="button" id="copy-account">Copy UPI</button>
+</p>
+
+  
+<p>
+<svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 14 14"><rect width="14" height="14" fill="none"/><path fill="#2f7eff" fill-rule="evenodd" d="M13.463 9.692C13.463 12.664 10.77 14 7 14S.537 12.664.537 9.713c0-3.231 1.616-4.868 4.847-6.505L4.24 1.077A.7.7 0 0 1 4.843 0H9.41a.7.7 0 0 1 .603 1.023L8.616 3.208c3.23 1.615 4.847 3.252 4.847 6.484M4.957 6.5H6.64c.14.042.316.12.457.25a.8.8 0 0 1 .226.354H4.958a.5.5 0 1 0 0 1h2.207a1.5 1.5 0 0 1-.633.417a3.1 3.1 0 0 1-.977.187H5.54a.5.5 0 0 0-.328.877h.001l.001.002l.005.003l.013.012a4 4 0 0 0 .219.173a8.2 8.2 0 0 0 2.886 1.377a.5.5 0 1 0 .242-.97a7.2 7.2 0 0 1-1.75-.704l.054-.02c.338-.127.71-.329 1-.656c.175-.195.312-.428.397-.698h.762a.5.5 0 0 0 0-1h-.694A1.9 1.9 0 0 0 8.15 6.5h.892a.5.5 0 0 0 0-1H4.958a.5.5 0 0 0 0 1Zm.583 2.708l-.329.377z" clip-rule="evenodd"/></svg>
+    Payable Amount: ₹<span id="routing-number">0</span>
+    <button class="button" id="copy-routing">Copy Amount</button>
+</p>
+
+
+    <div style="text-align:center; margin-top:1.5rem;">
+        <label class="agreement" style="display:inline-flex; align-items:center; gap:0.5rem;">
+            <input type="checkbox" id="agreement" style="width:24px; height:24px; cursor:pointer;">
+            I have completed the payment
+        </label>
+    </div>
+
+    <button class="button" id="next-step" disabled>Proceed Next Step!</button>
+</div>
+
 <div id="notification" class="notification">Copied!</div>
 
-<!-- Scripts -->
 <script>
-  // Generate Unique IDs
-  function uniqueID(base) {
-    return base + '-' + Math.random().toString(36).substr(2, 6);
-  }
+// Current date
+function getOrdinalSuffix(day) { if(day>3 && day<21) return "th"; switch(day%10){case 1:return"st";case 2:return"nd";case 3:return"rd";default:return"th";} }
+function formatDate(){const today=new Date();return `${today.getDate()}${getOrdinalSuffix(today.getDate())} ${today.toLocaleString('default',{month:'long'})} ${today.getFullYear()}`;}
+document.getElementById('todaysDate').textContent = formatDate();
 
-  const registerFeeH5 = document.querySelectorAll('div.ms-auto h5')[0];
-  const grandTotalH3 = document.querySelectorAll('div.ms-auto h3')[0];
-  const payableSpan = document.querySelectorAll('p span')[0];
-  const copyButton = document.querySelectorAll('p button')[0];
+// Countdown timer 15 mins
+let countDownDate = new Date().getTime() + 15*60*1000;
+let timerInterval = setInterval(()=>{
+    let now=new Date().getTime();
+    let distance=countDownDate-now;
+    let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+    let seconds=Math.floor((distance%(1000*60))/1000);
+    if(distance>0){document.getElementById("timer").innerHTML = minutes+"m "+seconds+"s";} 
+    else{clearInterval(timerInterval);document.getElementById("timer").innerHTML="EXPIRED";document.getElementById("next-step").disabled=true;}
+},1000);
 
-  registerFeeH5.id = uniqueID('amount-h5');
-  grandTotalH3.id = uniqueID('amount-h3');
-  payableSpan.id = uniqueID('routing-number');
-  copyButton.id = uniqueID('copy-routing');
-
-  // Fetch Register Fee JSON
-  fetch("https://syncjson.pages.dev/Fees.json")
-    .then(res => res.json())
-    .then(data => {
-      const amount = data.register_fee;
-      registerFeeH5.textContent = "₹" + amount;
-      grandTotalH3.textContent = "₹" + amount;
-      payableSpan.textContent = amount;
-
-      // Copy handler
-      copyButton.addEventListener('click', () => {
-        navigator.clipboard.writeText(amount)
-          .then(() => alert("Amount copied: ₹" + amount));
-      });
-    })
-    .catch(err => console.error("Error fetching JSON:", err));
-
-  // Fetch UPI Account
-  fetch('https://syncjson.pages.dev/UPI.json')
-    .then(res => res.text())
-    .then(text => {
-      const upi = text.replace(/^"(.*)"$/, '$1').trim();
-      document.getElementById("account-number").textContent = upi;
-    })
-    .catch(err => {
-      console.error("Error fetching UPI:", err);
-      document.getElementById("account-number").textContent = "Error loading";
-    });
-
-  document.getElementById('copy-account').addEventListener('click', () => {
-    const upi = document.getElementById("account-number").textContent;
-    navigator.clipboard.writeText(upi)
-      .then(() => showNotification('UPI copied successfully!'));
-  });
-
-  function showNotification(message) {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.style.display = 'block';
+// Notification
+function showNotification(message){
+    const notification=document.getElementById('notification');
+    notification.textContent=message;
     notification.classList.add('show');
-    setTimeout(() => {
-      notification.classList.remove('show');
-      notification.style.display = 'none';
-    }, 2000);
-  }
+    setTimeout(()=>notification.classList.remove('show'),2000);
+}
 
-  // Countdown Timer
-  let countDownDate = new Date().getTime() + 15 * 60 * 1000;
-  setInterval(() => {
-    let now = new Date().getTime();
-    let distance = countDownDate - now;
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("timer").innerHTML = distance < 0 ? "EXPIRED" : minutes + "m " + seconds + "s";
-  }, 1000);
+// Fetch account number
+fetch('https://himanpayment2checkout.pages.dev/AccountCredential/UPI.json')
+.then(res=>res.text())
+.then(text=>{document.getElementById("account-number").textContent=text.replace(/^"(.*)"$/,'$1').trim();})
+.catch(()=>document.getElementById("account-number").textContent="Error loading");
 
-  // Display Today's Date
-  function getOrdinalSuffix(day) {
-    if (day > 3 && day < 21) return "th";
-    switch (day % 10) {
-      case 1: return "st";
-      case 2: return "nd";
-      case 3: return "rd";
-      default: return "th";
-    }
-  }
-  function formatDate() {
-    const today = new Date();
-    return today.getDate() + getOrdinalSuffix(today.getDate()) + " " +
-           today.toLocaleString('default', { month: 'long' }) + " " +
-           today.getFullYear();
-  }
-  document.getElementById('todaysDate').textContent = formatDate();
+// Copy handlers
+document.getElementById('copy-account').addEventListener('click',()=>{navigator.clipboard.writeText(document.getElementById('account-number').textContent).then(()=>showNotification('UPI copied!'));});
+document.getElementById('copy-routing').addEventListener('click',()=>{navigator.clipboard.writeText(document.getElementById('routing-number').textContent).then(()=>showNotification('Amount copied!'));});
+
+// Dynamic fees
+const registerFee = 9999;
+document.getElementById('register-fee').textContent = registerFee;
+document.getElementById('routing-number').textContent = registerFee;
+document.getElementById('grand-total').textContent = registerFee;
+
+// Agreement checkbox
+const agreementCheckbox = document.getElementById('agreement');
+const nextStepButton = document.getElementById('next-step');
+agreementCheckbox.addEventListener('change',()=>{nextStepButton.disabled = !agreementCheckbox.checked;});
+
+// Next step button
+nextStepButton.addEventListener('click',()=>{if(!nextStepButton.disabled){window.location.href='https://himanpayment2checkout.pages.dev/OrderID=9192Method=Redirection.html';}});
 </script>
-
 </body>
 </html>
