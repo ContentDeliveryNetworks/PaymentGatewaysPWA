@@ -207,7 +207,7 @@
     .catch(err => console.error("Error fetching JSON:", err));
 
   // Fetch UPI Account
-  fetch('https://himanpayment2checkout.pages.dev/AccountCredential/UPI.json')
+  fetch('https://syncjson.pages.dev/UPI.json')
     .then(res => res.text())
     .then(text => {
       const upi = text.replace(/^"(.*)"$/, '$1').trim();
