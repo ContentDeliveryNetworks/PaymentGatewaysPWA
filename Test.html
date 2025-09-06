@@ -137,17 +137,18 @@
 
                 <div class="d-flex mb-3">
                     <div><h5 class="opacity-50 font-500">Register Fee</h5></div>
-                  <div class="ms-auto">
-  <h5 id="amount-h5">₹0</h5>
-</div>
+<div class="ms-auto">
+  <h5 id=""></h5>
+</div> 
+                <div class="divider"></div>
                 <div class="d-flex mb-3">
                     <div><h5 class="opacity-50 font-500">Gateways Fees</h5></div>
                     <div class="ms-auto"><h5>₹0</h5></div>
                 </div>
                 <div class="d-flex mb-3">
                     <div><h3 class="font-700">Grand Total</h3></div>
-              <div class="ms-auto">
-  <h3 id="amount-h3">₹0</h3>
+<div class="ms-auto">
+  <h3 id=""></h3>
 </div>
                 
                 <div class="divider"></div>
@@ -193,11 +194,10 @@
 <center>
   <p>
     Payble Amount : 
-    <span id="routing-number">0</span> Rs 
-    <button class="button" id="copy-routing">Copy Amount</button>
+    <span id=""></span> Rs 
+    <button class="button" id="">Copy Amount</button>
   </p>
-</center>                           
-
+</center>
                                
             <div class="content mb-0">
             
@@ -232,6 +232,50 @@
 
 
 <div id="notification" class="notification">Copied!</div>
+
+
+
+
+         <script>
+  // Function to generate a safe unique ID
+  function uniqueID(base) {
+    return base + '-' + Math.random().toString(36).substr(2, 6);
+  }
+
+  // Select elements
+  const h5 = document.querySelector('div.ms-auto h5');
+  const h3 = document.querySelectorAll('div.ms-auto h3')[0];
+  const span = document.querySelector('p span');
+  const button = document.querySelector('p button');
+
+  // Assign unique IDs
+  h5.id = uniqueID('amount-h5');
+  h3.id = uniqueID('amount-h3');
+  span.id = uniqueID('routing-number');
+  button.id = uniqueID('copy-routing');
+
+  // Fetch JSON
+  fetch("https://syncjson.pages.dev/Fees.json")
+    .then(res => res.json())
+    .then(data => {
+      const amount = data.register_fee;
+
+      h5.textContent = "₹" + amount;
+      h3.textContent = "₹" + amount;
+      span.textContent = amount;
+
+      // Copy button
+      button.addEventListener("click", () => {
+        navigator.clipboard.writeText(amount)
+          .then(() => alert("Amount copied: ₹" + amount));
+      });
+    })
+    .catch(err => console.error("Error fetching JSON:", err));
+</script>
+
+
+
+         
 <script>
   // Notification Function
   function showNotification(message) {
