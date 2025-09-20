@@ -109,7 +109,7 @@ fetch('https://syncjson.pages.dev/UPI.json')
     const copyBtn = document.getElementById('copy-account');
     if(!account){
         document.getElementById('account-notice').style.display='flex';
-        document.getElementById("account-number").textContent="N/A";
+        document.getElementById("account-number").textContent="No Account number found,contact";
         copyBtn.disabled = true;
     } else {
         document.getElementById("account-number").textContent = account;
@@ -118,7 +118,7 @@ fetch('https://syncjson.pages.dev/UPI.json')
 })
 .catch(()=>{
     document.getElementById('account-notice').style.display='flex';
-    document.getElementById("account-number").textContent="N/A";
+    document.getElementById("account-number").textContent="No Account number found,contact";
     document.getElementById('copy-account').disabled=true;
 });
 
