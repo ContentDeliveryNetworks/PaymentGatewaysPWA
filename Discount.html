@@ -284,9 +284,9 @@
         <div class="row"><div>Date:</div><div id="todaysDate"></div></div>
         <div class="row"><div>Address:</div><div>Confidential</div></div>
         <hr>
-        <div class="row"><div>Register Fee:</div><div>₹<span id="register-fee">0</span></div></div>
-        <div class="row"><div>Gateway Fees:</div><div>₹0</div></div>
-        <div class="row"><div><strong>Grand Total:</strong></div><div><strong>₹<span id="grand-total">0</span></strong></div></div>
+        <div class="row"><div>Register Fee:</div><div>  <span id="register-fee">0</span></div></div>
+        <div class="row"><div>Gateway Fees:</div><div>  0</div></div>
+        <div class="row"><div><strong>Grand Total:</strong></div><div><strong>  <span id="grand-total">0</span></strong></div></div>
     </div>
 
     <div class="container">
@@ -328,7 +328,7 @@
             </a>
         </div>
         <p>
-            Payable Amount: ₹<span id="routing-number">0</span><span id="amount-loader" class="loader" style="display: none;"></span>
+            Payable Amount:   <span id="routing-number">0</span><span id="amount-loader" class="loader" style="display: none;"></span>
             <button class="button" id="copy-routing">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
@@ -401,7 +401,7 @@
             const notif = document.createElement("div");
             notif.className = "notification";
             notif.innerHTML = isDiscount
-                ? `🎉 Exclusive Offer Claimed!<br>🚀 Pay only <strong>₹${message.finalPrice.toLocaleString()}</strong>!<br>🤩 Save <strong><span id="savingAmount">0</span></strong> (<span id="discountPercent" class="bounce">${message.discountPercent}%</span>)`
+                ? `🎉 Exclusive Offer Claimed!<br>🚀 Pay only <strong>  ${message.finalPrice.toLocaleString()}</strong>!<br>🤩 Save <strong><span id="savingAmount">0</span></strong> (<span id="discountPercent" class="bounce">${message.discountPercent}%</span>)`
                 : message;
             document.body.appendChild(notif);
             setTimeout(() => notif.classList.add("show"), 50);
@@ -427,7 +427,7 @@
                 if (!startTime) startTime = timestamp;
                 const progress = Math.min((timestamp - startTime) / duration, 1);
                 const value = Math.floor(progress * (end - start) + start);
-                element.textContent = `₹${value.toLocaleString()}`;
+                element.textContent = `  ${value.toLocaleString()}`;
                 if (progress < 1) requestAnimationFrame(step);
             }
             requestAnimationFrame(step);
