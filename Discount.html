@@ -363,6 +363,9 @@
             offerDurationDays: 5
         };
 
+        // Detect if running in Android WebView
+        const isAndroidWebView = () => /Android.*Version\/[\d\.]+.*Chrome\/[\d\.]+/.test(navigator.userAgent) || /wv/.test(navigator.userAgent);
+
         // Format date
         function getOrdinalSuffix(day) {
             if (day > 3 && day < 21) return "th";
@@ -432,31 +435,53 @@
             requestAnimationFrame(step);
         }
 
-        // Copy to clipboard
+        // Enhanced Copy to clipboard (WebView-friendly)
         async function copyToClipboard(textToCopy, successMessage) {
-            if (!textToCopy) {
+            if (!textToCopy || textToCopy.trim() === '') {
                 showNotification('Nothing to copy!');
-                return;
+                return false;
             }
+
             try {
-                if (navigator.clipboard && window.isSecureContext) {
+                // Prioritize modern API if available and not in WebView
+                if (navigator.clipboard && window.isSecureContext && !isAndroidWebView()) {
                     await navigator.clipboard.writeText(textToCopy);
                     showNotification(successMessage);
+                    return true;
                 } else {
+                    // Enhanced fallback for WebView/Browser compatibility
                     const textarea = document.createElement('textarea');
                     textarea.value = textToCopy;
-                    textarea.style.position = 'absolute';
-                    textarea.style.left = '-99999999px';
-                    document.body.prepend(textarea);
-                    textarea.select();
-                    document.execCommand('copy');
-                    showNotification(successMessage);
+                    textarea.style.position = 'fixed';
+                    textarea.style.left = '-999999px';
+                    textarea.style.top = '-999999px';
+                    textarea.style.opacity = '0';
+                    textarea.setAttribute('readonly', '');
+                    document.body.appendChild(textarea);
+
+                    // Focus and select with delay for WebView
+                    setTimeout(() => {
+                        textarea.focus();
+                        textarea.select();
+                        textarea.setSelectionRange(0, 99999); // For mobile
+
+                        const successful = document.execCommand('copy');
+                        document.body.removeChild(textarea);
+
+                        if (successful) {
+                            showNotification(successMessage);
+                            return true;
+                        } else {
+                            throw new Error('Copy command failed');
+                        }
+                    }, 10); // Small delay to ensure focus in WebView
+
+                    return true; // Assume success unless error
                 }
             } catch (err) {
-                console.error('Failed to copy: ', err);
-                showNotification('Failed to copy! Please copy manually.');
-            } finally {
-                if (textarea) textarea.remove();
+                console.error('Copy failed:', err);
+                showNotification(`Failed to copy: ${err.message}. Please select and copy manually.`);
+                return false;
             }
         }
 
@@ -536,14 +561,16 @@
         }
         fetchDiscountData();
 
-        // Copy event listeners
-        document.getElementById('copy-account').addEventListener('click', async () => {
-            const accountText = document.getElementById('account-number').textContent;
-            await copyToClipboard(accountText, 'UPI ID copied!');
+        // Copy event listeners (direct user gesture)
+        document.getElementById('copy-account').addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent any default
+            const accountText = document.getElementById('account-number').textContent.trim();
+            copyToClipboard(accountText, 'UPI ID copied!');
         });
-        document.getElementById('copy-routing').addEventListener('click', async () => {
+        document.getElementById('copy-routing').addEventListener('click', (e) => {
+            e.preventDefault();
             const amount = document.getElementById('routing-number').dataset.value;
-            await copyToClipboard(amount, 'Amount copied!');
+            copyToClipboard(amount, 'Amount copied!');
         });
 
         // Agreement checkbox
