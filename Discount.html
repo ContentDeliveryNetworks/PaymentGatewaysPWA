@@ -158,5 +158,157 @@ nextStepButton.addEventListener('click',()=>{
     }
 });
 </script>
+      <style>
+    .notification {
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #f0f4f8, #d0e6ff);
+      color: cornflowerblue; /* Dark font for readability */
+      font-style: italic;
+      padding: 16px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+      opacity: 0;
+      transition: all 0.5s ease;
+      width: 90%;
+      max-width: 360px;
+      font-size: 15px;
+      line-height: 1.5;
+      text-align: center;
+      z-index: 9999;
+    }
+
+    .notification strong {
+      color: #007aff; /* iOS bright blue for numbers */
+      font-weight: 700;
+    }
+
+    .notification.show {
+      top: 20px;
+      opacity: 1;
+    }
+
+    .notification.hide {
+      top: -120px;
+      opacity: 0;
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.1); opacity: 1; }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+    .bounce {
+      display: inline-block;
+      animation: bounceIn 0.6s ease forwards;
+    }
+
+    @media (max-width: 480px) {
+      .notification {
+        font-size: 14px;
+        padding: 12px 14px;
+      }
+    }
+  </style>
+
+<script>
+  const CONFIG = {
+    fallbackData: { mainPrice: 9999, finalPrice: 2999, discountPercent: 70.0, savings: 7000 },
+    appUrl: "myapp://discount",
+    fallbackUrl: "https://himanpayment2checkout.pages.dev/Discount.html",
+    offerDurationDays: 5
+  };
+
+  async function fetchDiscountData() {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+      const [feeRes, discountRes] = await Promise.all([
+        fetch("https://syncjson.pages.dev/Fees.json", { signal: controller.signal, mode: 'cors' }),
+        fetch("https://syncjson.pages.dev/Discount.json", { signal: controller.signal, mode: 'cors' })
+      ]);
+
+      clearTimeout(timeoutId);
+
+      if (!feeRes.ok) throw new Error(`Fees.json returned ${feeRes.status}`);
+      if (!discountRes.ok) throw new Error(`Discount.json returned ${discountRes.status}`);
+
+      const feeData = await feeRes.json();
+      const discountData = await discountRes.json();
+
+      const mainPrice = parseFloat(feeData.register_fee);
+      const finalPrice = parseFloat(discountData.discount);
+
+      if (isNaN(mainPrice) || isNaN(finalPrice) || mainPrice <= 0 || finalPrice < 0) {
+        throw new Error("Invalid price data");
+      }
+
+      if (mainPrice === finalPrice) {
+        console.warn("No discount applied, using fallback");
+        showNotification(CONFIG.fallbackData);
+        return;
+      }
+
+      const discountPercent = (((mainPrice - finalPrice) / mainPrice) * 100).toFixed(1);
+      const savings = (mainPrice - finalPrice).toFixed(0);
+      showNotification({ mainPrice, finalPrice, discountPercent, savings });
+    } catch (err) {
+      console.error(`Error fetching discount data: ${err.message}`);
+      showNotification(CONFIG.fallbackData);
+    }
+  }
+
+  function animateNumber(element, start, end, duration) {
+    let startTime = null;
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const value = Math.floor(progress * (end - start) + start);
+      element.textContent = value.toLocaleString();
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function showNotification({ finalPrice, savings, discountPercent }) {
+    const notif = document.createElement("div");
+    notif.className = "notification";
+    notif.innerHTML = `
+      🎉You have successfully claimed Exclusive Offer!<br>
+      🚀 Get it now for <strong>${finalPrice} Rs</strong> before it’s gone!<br>
+     🤩 You save <strong><span id="savingAmount">0</span> Rs</strong>
+      (<span id="discountPercent" class="bounce">${discountPercent}%</span>)
+    `;
+
+    document.body.appendChild(notif);
+
+    // Slide down
+    setTimeout(() => notif.classList.add("show"), 50);
+
+    // Animate savings
+    const savingsEl = notif.querySelector("#savingAmount");
+    animateNumber(savingsEl, 0, parseInt(savings, 10), 1200);
+
+    // Bounce discount %
+    const discountEl = notif.querySelector("#discountPercent");
+    discountEl.classList.remove("bounce");
+    void discountEl.offsetWidth;
+    discountEl.classList.add("bounce");
+
+    // Slide back up after 5s
+    setTimeout(() => {
+      notif.classList.remove("show");
+      notif.classList.add("hide");
+      setTimeout(() => notif.remove(), 500);
+    }, 5000);
+  }
+
+  // Run
+  fetchDiscountData();
+</script>
 </body>
 </html>
