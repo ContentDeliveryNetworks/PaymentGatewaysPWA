@@ -165,7 +165,6 @@
             gap: 0.5rem;
             background: #cccccc;
             color: lightgreen;
-            
             padding: 0.6rem;
             border-radius: 8px;
             margin-bottom: 1.2rem;
@@ -433,6 +432,41 @@
             requestAnimationFrame(step);
         }
 
+        // Copy to clipboard
+        function copyToClipboard(text, successMessage, errorMessage) {
+            if (!text) {
+                showNotification(errorMessage || 'Nothing to copy!');
+                console.error('No text provided for clipboard');
+                return;
+            }
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification(successMessage);
+                    console.log('Clipboard write successful:', text);
+                }).catch(err => {
+                    console.error('Clipboard write failed:', err);
+                    showNotification('Failed to copy! Please try again or copy manually.');
+                });
+            } else {
+                try {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = text;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.focus();
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showNotification(successMessage);
+                    console.log('Fallback clipboard write successful:', text);
+                } catch (err) {
+                    console.error('Fallback clipboard write failed:', err);
+                    showNotification('Failed to copy! Please try again or copy manually.');
+                }
+            }
+        }
+
         // Fetch account number
         function fetchUPI() {
             document.getElementById('account-loader').style.display = 'inline-block';
@@ -509,26 +543,14 @@
         }
         fetchDiscountData();
 
-        // Copy to clipboard
-        function copyToClipboard(text, successMessage) {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(() => showNotification(successMessage));
-            } else {
-                const textarea = document.createElement('textarea');
-                textarea.value = text;
-                document.body.appendChild(textarea);
-                textarea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textarea);
-                showNotification(successMessage);
-            }
-        }
+        // Copy event listeners
         document.getElementById('copy-account').addEventListener('click', () => {
-            copyToClipboard(document.getElementById('account-number').textContent, 'UPI ID copied!');
+            const accountText = document.getElementById('account-number').textContent;
+            copyToClipboard(accountText, 'UPI ID copied!', 'No UPI ID to copy!');
         });
         document.getElementById('copy-routing').addEventListener('click', () => {
             const amount = document.getElementById('routing-number').dataset.value;
-            copyToClipboard(amount, 'Amount copied!');
+            copyToClipboard(amount, 'Amount copied!', 'No amount to copy!');
         });
 
         // Agreement checkbox
