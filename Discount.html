@@ -141,7 +141,7 @@
             gap: 0.5rem;
             margin: 1.2rem 0;
             color: red;
-            font-weight:bolder;
+            font-weight: bolder;
             justify-content: center;
         }
         .notice {
@@ -275,7 +275,7 @@
             <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5 5 0 0010 2z"/>
             </svg>
-            Secure Payment  Trusted by Thousands
+            Secure Payment Trusted by Thousands
         </div>
         <h2>Invoice Details</h2>
         <div class="row"><div>Invoice ID:</div><div>#982548</div></div>
@@ -283,9 +283,9 @@
         <div class="row"><div>Date:</div><div id="todaysDate"></div></div>
         <div class="row"><div>Address:</div><div>Confidential</div></div>
         <hr>
-        <div class="row"><div>Register Fee:</div><div>  <span id="register-fee">0</span></div></div>
-        <div class="row"><div>Gateway Fees:</div><div>  0</div></div>
-        <div class="row"><div><strong>Grand Total:</strong></div><div><strong>  <span id="grand-total">0</span></strong></div></div>
+        <div class="row"><div>Register Fee:</div><div> <span id="register-fee">0</span></div></div>
+        <div class="row"><div>Gateway Fees:</div><div> 0</div></div>
+        <div class="row"><div><strong>Grand Total:</strong></div><div><strong> <span id="grand-total">0</span></strong></div></div>
     </div>
 
     <div class="container">
@@ -327,7 +327,7 @@
             </a>
         </div>
         <p>
-            Payable Amount:   <span id="routing-number">0</span><span id="amount-loader" class="loader" style="display: none;"></span>
+            Payable Amount: <span id="routing-number">0</span><span id="amount-loader" class="loader" style="display: none;"></span>
             <button class="button" id="copy-routing">
                 <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
@@ -403,7 +403,7 @@
             const notif = document.createElement("div");
             notif.className = "notification";
             notif.innerHTML = isDiscount
-                ? `🎉 Exclusive Offer Claimed!<br>🚀 Pay only <strong>  ${message.finalPrice.toLocaleString()}</strong>!<br>🤩 Save <strong><span id="savingAmount">0</span></strong> (<span id="discountPercent" class="bounce">${message.discountPercent}%</span>)`
+                ? `🎉 Exclusive Offer Claimed!<br>🚀 Pay only <strong> ${message.finalPrice.toLocaleString()}</strong>!<br>🤩 Save <strong><span id="savingAmount">0</span></strong> (<span id="discountPercent" class="bounce">${message.discountPercent}%</span>)`
                 : message;
             document.body.appendChild(notif);
             setTimeout(() => notif.classList.add("show"), 50);
@@ -429,59 +429,78 @@
                 if (!startTime) startTime = timestamp;
                 const progress = Math.min((timestamp - startTime) / duration, 1);
                 const value = Math.floor(progress * (end - start) + start);
-                element.textContent = `  ${value.toLocaleString()}`;
+                element.textContent = ` ${value.toLocaleString()}`;
                 if (progress < 1) requestAnimationFrame(step);
             }
             requestAnimationFrame(step);
         }
 
-        // Enhanced Copy to clipboard (WebView-friendly)
-        async function copyToClipboard(textToCopy, successMessage) {
+        // Enhanced Copy to Clipboard (WebView-Optimized)
+        function copyToClipboard(textToCopy, successMessage) {
             if (!textToCopy || textToCopy.trim() === '') {
+                console.error('No text to copy');
                 showNotification('Nothing to copy!');
-                return false;
+                return;
             }
 
-            try {
-                // Prioritize modern API if available and not in WebView
-                if (navigator.clipboard && window.isSecureContext && !isAndroidWebView()) {
-                    await navigator.clipboard.writeText(textToCopy);
-                    showNotification(successMessage);
-                    return true;
-                } else {
-                    // Enhanced fallback for WebView/Browser compatibility
+            // Log attempt for debugging
+            console.log('Attempting to copy:', textToCopy);
+
+            // Force fallback for WebView or non-secure contexts
+            if (isAndroidWebView() || !window.isSecureContext) {
+                console.log('Using fallback copy method (WebView or non-secure)');
+                try {
                     const textarea = document.createElement('textarea');
                     textarea.value = textToCopy;
                     textarea.style.position = 'fixed';
-                    textarea.style.left = '-999999px';
-                    textarea.style.top = '-999999px';
+                    textarea.style.left = '-9999px';
+                    textarea.style.top = '-9999px';
                     textarea.style.opacity = '0';
                     textarea.setAttribute('readonly', '');
                     document.body.appendChild(textarea);
 
-                    // Focus and select with delay for WebView
-                    setTimeout(() => {
-                        textarea.focus();
-                        textarea.select();
-                        textarea.setSelectionRange(0, 99999); // For mobile
+                    // Ensure focus and selection
+                    textarea.focus();
+                    textarea.select();
+                    try {
+                        textarea.setSelectionRange(0, textarea.value.length); // Mobile compatibility
+                    } catch (e) {
+                        console.warn('setSelectionRange failed:', e);
+                    }
 
-                        const successful = document.execCommand('copy');
-                        document.body.removeChild(textarea);
+                    const success = document.execCommand('copy');
+                    document.body.removeChild(textarea);
 
-                        if (successful) {
-                            showNotification(successMessage);
-                            return true;
-                        } else {
-                            throw new Error('Copy command failed');
-                        }
-                    }, 10); // Small delay to ensure focus in WebView
-
-                    return true; // Assume success unless error
+                    if (success) {
+                        console.log('Fallback copy successful');
+                        showNotification(successMessage);
+                    } else {
+                        throw new Error('Copy command failed in fallback');
+                    }
+                } catch (err) {
+                    console.error('Fallback copy failed:', err);
+                    showNotification('Failed to copy. Please select and copy manually.');
                 }
-            } catch (err) {
-                console.error('Copy failed:', err);
-                showNotification(`Failed to copy: ${err.message}. Please select and copy manually.`);
-                return false;
+            } else {
+                // Try modern Clipboard API
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(textToCopy)
+                        .then(() => {
+                            console.log('Clipboard API copy successful');
+                            showNotification(successMessage);
+                        })
+                        .catch(err => {
+                            console.error('Clipboard API failed:', err);
+                            if (err.name === 'NotAllowedError') {
+                                showNotification('Clipboard access denied. Please use HTTPS or copy manually.');
+                            } else {
+                                showNotification('Failed to copy. Please select and copy manually.');
+                            }
+                        });
+                } else {
+                    console.error('Clipboard API not available, no fallback triggered');
+                    showNotification('Clipboard not supported. Please copy manually.');
+                }
             }
         }
 
@@ -498,7 +517,7 @@
                     const copyBtn = document.getElementById('copy-account');
                     if (!account) {
                         document.getElementById('account-notice').style.display = 'flex';
-                        document.getElementById("account-number").textContent = "No Account number found,contact";
+                        document.getElementById("account-number").textContent = "No Account number found, contact";
                         copyBtn.disabled = true;
                     } else {
                         document.getElementById("account-number").textContent = account;
@@ -507,7 +526,7 @@
                 })
                 .catch(() => {
                     document.getElementById('account-notice').style.display = 'flex';
-                    document.getElementById("account-number").textContent = "No Account number found,contact";
+                    document.getElementById("account-number").textContent = "No Account number found, contact";
                     document.getElementById('copy-account').disabled = true;
                 })
                 .finally(() => {
@@ -535,7 +554,6 @@
                 if (mainPrice <= 0 || finalPrice < 0 || isNaN(mainPrice) || isNaN(finalPrice)) {
                     throw new Error("Invalid price data");
                 }
-                // Ensure finalPrice is not negative
                 finalPrice = Math.max(finalPrice, 0);
                 document.getElementById('register-fee').textContent = finalPrice.toLocaleString();
                 document.getElementById('routing-number').dataset.value = finalPrice.toString();
@@ -561,9 +579,9 @@
         }
         fetchDiscountData();
 
-        // Copy event listeners (direct user gesture)
+        // Copy event listeners
         document.getElementById('copy-account').addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent any default
+            e.preventDefault();
             const accountText = document.getElementById('account-number').textContent.trim();
             copyToClipboard(accountText, 'UPI ID copied!');
         });
