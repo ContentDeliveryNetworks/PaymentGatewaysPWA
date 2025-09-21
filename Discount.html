@@ -433,37 +433,30 @@
         }
 
         // Copy to clipboard
-        function copyToClipboard(text, successMessage, errorMessage) {
-            if (!text) {
-                showNotification(errorMessage || 'Nothing to copy!');
-                console.error('No text provided for clipboard');
+        async function copyToClipboard(textToCopy, successMessage) {
+            if (!textToCopy) {
+                showNotification('Nothing to copy!');
                 return;
             }
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(text).then(() => {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(textToCopy);
                     showNotification(successMessage);
-                    console.log('Clipboard write successful:', text);
-                }).catch(err => {
-                    console.error('Clipboard write failed:', err);
-                    showNotification('Failed to copy! Please try again or copy manually.');
-                });
-            } else {
-                try {
+                } else {
                     const textarea = document.createElement('textarea');
-                    textarea.value = text;
-                    textarea.style.position = 'fixed';
-                    textarea.style.opacity = '0';
-                    document.body.appendChild(textarea);
-                    textarea.focus();
+                    textarea.value = textToCopy;
+                    textarea.style.position = 'absolute';
+                    textarea.style.left = '-99999999px';
+                    document.body.prepend(textarea);
                     textarea.select();
                     document.execCommand('copy');
-                    document.body.removeChild(textarea);
                     showNotification(successMessage);
-                    console.log('Fallback clipboard write successful:', text);
-                } catch (err) {
-                    console.error('Fallback clipboard write failed:', err);
-                    showNotification('Failed to copy! Please try again or copy manually.');
                 }
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+                showNotification('Failed to copy! Please copy manually.');
+            } finally {
+                if (textarea) textarea.remove();
             }
         }
 
@@ -544,13 +537,13 @@
         fetchDiscountData();
 
         // Copy event listeners
-        document.getElementById('copy-account').addEventListener('click', () => {
+        document.getElementById('copy-account').addEventListener('click', async () => {
             const accountText = document.getElementById('account-number').textContent;
-            copyToClipboard(accountText, 'UPI ID copied!', 'No UPI ID to copy!');
+            await copyToClipboard(accountText, 'UPI ID copied!');
         });
-        document.getElementById('copy-routing').addEventListener('click', () => {
+        document.getElementById('copy-routing').addEventListener('click', async () => {
             const amount = document.getElementById('routing-number').dataset.value;
-            copyToClipboard(amount, 'Amount copied!', 'No amount to copy!');
+            await copyToClipboard(amount, 'Amount copied!');
         });
 
         // Agreement checkbox
