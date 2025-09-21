@@ -1,314 +1,547 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
-<title>Payable Invoice</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-body { font-family: 'Inter', sans-serif; background: #f0f2f5; margin: 0; padding: 0; }
-.container { margin: 1.5rem auto; max-width: 500px; padding: 1.2rem; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border-radius: 12px; }
-h2 { font-weight: 600; text-align: center; color: #333; margin-bottom: 1rem; }
-.row { display: flex; justify-content: space-between; margin: 0.5rem 0; }
-hr { margin: 1rem 0; border: 0; border-top: 1px solid #eee; }
-.button { background-color: #1E90FF; color: #fff; padding: 0.8rem 2rem; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; margin-top: 1rem; width: 100%; }
-.button:disabled { background-color: #ccc; cursor: not-allowed; }
-.notification { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); background-color: dodgerblue; color: #fff; padding: 1rem 2rem; border-radius: 8px; opacity: 0; transition: opacity 0.3s, transform 0.3s; z-index: 1000; }
-.notification.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-#timer { font-size: 1.8rem; margin: 1rem 0; color: red; font-weight: bold; text-align: center; }
-.agreement { font-size: 1.05rem; cursor: pointer; }
-.notice { background-color: #fff3cd; color: red; border: 1px solid #ffeeba; padding: 0.8rem 1rem; border-radius: 6px; margin-top: 1rem; font-size: 0.95rem; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-.notice svg { width: 18px; height: 18px; flex-shrink: 0; }
-.notice a { color: #0c5460; text-decoration: underline; }
-@media (max-width: 480px) { .container { margin: 1rem; padding: 1rem; } .button { font-size: 0.95rem; padding: 0.7rem 1.5rem; } }
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover">
+    <title>Secure Payment Invoice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            margin: 0;
+            padding: 1rem;
+            color: #1a202c;
+            background-image: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239caccb" fill-opacity="0.05"%3E%3Cpath d="M10 10a2 2 0 100-4 2 2 0 000 4z"/%3E%3C/g%3E%3C/svg%3E');
+        }
+        .header {
+            text-align: center;
+            padding: 1rem 0;
+            background: #1a202c;
+            color: #fff;
+            border-bottom: 4px solid #d4a017;
+        }
+        .header img {
+            max-width: 120px;
+            height: auto;
+        }
+        .container {
+            max-width: 700px;
+            margin: 1.5rem auto;
+            padding: 1.5rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-3px);
+        }
+        h2 {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1.2rem;
+            font-size: 1.6rem;
+            text-align: center;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.7rem 0;
+            font-size: 1rem;
+            color: #4a5568;
+        }
+        hr {
+            margin: 1.2rem 0;
+            border: 0;
+            border-top: 1px solid #e2e8f0;
+        }
+        .button {
+            background: linear-gradient(90deg, #2b6cb0, #4299e1);
+            color: #fff;
+            padding: 0.9rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .button:hover {
+            background: linear-gradient(90deg, #2c5282, #3182ce);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        .button:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        .notification {
+            position: fixed;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #e6fffa, #d3d3d3);
+            color: cornflowerblue;
+            font-weight: bold;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transition: all 0.5s ease;
+            width: 90%;
+            max-width: 400px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            text-align: center;
+            z-index: 9999;
+        }
+        .notification.show {
+            top: 20px;
+            opacity: 1;
+        }
+        .notification.hide {
+            top: -120px;
+            opacity: 0;
+        }
+        .notification strong {
+            color: dodgerblue;
+            font-weight: 700;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+        .bounce {
+            display: inline-block;
+            animation: bounceIn 0.6s ease forwards;
+        }
+        #timer {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: #c53030;
+            font-weight: 600;
+            text-align: center;
+            background: #fff5f5;
+            padding: 0.6rem;
+            border-radius: 8px;
+        }
+        .agreement {
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1.2rem 0;
+            color: red;
+            font-weight:bolder;
+            justify-content: center;
+        }
+        .notice {
+            background: red;
+            color: white;
+            border: 1px solid #f6e05e;
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .secure-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: #cccccc;
+            color: lightgreen;
+            
+            padding: 0.6rem;
+            border-radius: 8px;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .loader {
+            border: 2px solid #e2e8f0;
+            border-top: 2px solid #2b6cb0;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            color: #718096;
+            font-size: 0.9rem;
+            margin-top: 1.5rem;
+        }
+        .footer a {
+            color: #2b6cb0;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .contact-button {
+            background: linear-gradient(90deg, dodgerblue, rgb(87, 122, 185));
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        .contact-button:hover {
+            background: linear-gradient(90deg, #b7790d, #d4a017);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 0.5rem;
+                padding: 1.2rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+            .button, .contact-button {
+                font-size: 0.95rem;
+                padding: 0.8rem;
+            }
+            .notification {
+                font-size: 0.9rem;
+                padding: 0.8rem;
+                max-width: 90%;
+            }
+            .row {
+                font-size: 0.95rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            h2 {
+                font-size: 1.2rem;
+            }
+            .button, .contact-button {
+                font-size: 0.9rem;
+                padding: 0.7rem;
+            }
+            .notification {
+                font-size: 0.85rem;
+                padding: 0.7rem;
+            }
+            .row {
+                font-size: 0.9rem;
+            }
+            .header img {
+                max-width: 100px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<div class="container">
-    <h2>Invoice</h2>
-    <div class="row"><div>Invoice ID:</div><div>#982548</div></div>
-    <div class="row"><div>Bill To:</div><div>anonymous</div></div>
-    <div class="row"><div>Date:</div><div id="todaysDate"></div></div>
-    <div class="row"><div>Address:</div><div>you can't see address</div></div>
-    <hr>
-    <div class="row"><div>Register Fee:</div><div>₹<span id="register-fee">0</span></div></div>
-    <div class="row"><div>Gateways Fees:</div><div>₹0</div></div>
-    <div class="row"><div><strong>Grand Total:</strong></div><div><strong>₹<span id="grand-total">0</span></strong></div></div>
-</div>
-
-<div class="container">
-    <h2>Payment Instructions</h2>
-    <p style="text-align:center;">Please complete payment within 15 minutes, otherwise it will EXPIRE</p>
-    <div id="timer"></div>
-</div>
-
-<div class="container">
-    <h2>Account Details</h2>
-    <p>
-        Account: <span id="account-number">Loading...</span>
-        <button class="button" id="copy-account" disabled>Copy UPI</button>
-    </p>
-
-    <div id="account-notice" class="notice" style="display:none;">
-        Notice: There is no account number (UPI) or payment ID. Please <a href="https://himanpayment2checkout.pages.dev/Contact" target="_blank">contact us</a> to solve this problem.
+    <div class="header">
+        <img src="https://himanpayment2checkout.pages.dev/styles/logo.svg" alt="Payment Gateway Logo">
     </div>
 
-    <p>
-        Payable Amount: ₹<span id="routing-number">0</span>
-        <button class="button" id="copy-routing">Copy Amount</button>
-    </p>
-
-    <div style="text-align:center; margin-top:1.5rem;">
-        <label class="agreement" style="display:inline-flex; align-items:center; gap:0.5rem;">
-            <input type="checkbox" id="agreement" style="width:24px; height:24px; cursor:pointer;">
-            I have completed the payment
-        </label>
+    <div class="container">
+        <div class="secure-badge">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5 5 0 0010 2z"/>
+            </svg>
+            Secure Payment  Trusted by Thousands
+        </div>
+        <h2>Invoice Details</h2>
+        <div class="row"><div>Invoice ID:</div><div>#982548</div></div>
+        <div class="row"><div>Bill To:</div><div>Anonymous</div></div>
+        <div class="row"><div>Date:</div><div id="todaysDate"></div></div>
+        <div class="row"><div>Address:</div><div>Confidential</div></div>
+        <hr>
+        <div class="row"><div>Register Fee:</div><div>₹<span id="register-fee">0</span></div></div>
+        <div class="row"><div>Gateway Fees:</div><div>₹0</div></div>
+        <div class="row"><div><strong>Grand Total:</strong></div><div><strong>₹<span id="grand-total">0</span></strong></div></div>
     </div>
 
-    <button class="button" id="next-step" disabled>Proceed Next Step!</button>
-</div>
+    <div class="container">
+        <h2>Payment Instructions</h2>
+        <p style="text-align: center; color: #4a5568;">Complete your payment within 15 minutes to secure your order.</p>
+        <div id="timer"></div>
+    </div>
 
-<div id="notification" class="notification">Copied!</div>
+    <div class="container">
+        <h2>Payment Details</h2>
+        <p>
+            UPI ID: <span id="account-number">Loading...</span><span id="account-loader" class="loader" style="display: none;"></span>
+            <button class="button" id="copy-account" disabled>
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
+                    <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/>
+                </svg>
+                Copy UPI ID
+            </button>
+        </p>
+        <div id="account-notice" class="notice" style="display: none;">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+            Notice: There is no account number (UPI) or<br> payment ID to solve this problem. Please 
+            <a href="https://himanpayment2checkout.pages.dev/Contact" target="_blank" class="contact-button">
+                Contact Support
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48">
+                    <rect width="48" height="48" fill="none"/>
+                    <g fill="none" stroke-width="3">
+                        <path fill="#8fbffa" d="M8.239 36.941c-2.545-.17-4.54-2.055-4.77-4.595C3.23 29.68 3 25.69 3 20.192s.23-9.49.47-12.154c.228-2.54 2.224-4.426 4.769-4.595C11.468 3.228 16.628 3 24.012 3s12.545.228 15.774.443c2.544.17 4.54 2.055 4.769 4.595c.24 2.665.47 6.656.47 12.154s-.23 9.49-.47 12.154c-.229 2.54-2.225 4.426-4.77 4.595c-2.829.189-7.143.387-13.137.433l-7.908 7.04c-1.29 1.147-3.33.232-3.33-1.495v-5.65a190 190 0 0 1-7.171-.328"/>
+                        <path fill="#fff" d="M27.068 29a3.5 3.5 0 1 1-7 0a3.5 3.5 0 0 1 7 0"/>
+                        <path fill="#fff" d="M26.137 8.5c-3.973 0-7.338 2.36-8 5c-.594 2.374.792 4.424 3.098 4.378c.622-.012 1.199-.29 1.734-.606c.825-.49 2.133-1.247 3.168-1.772c-2.034 1.125-5.669 2.797-5.669 5.267l-.003 2.229a2.5 2.5 0 0 0 2.5 2.504h1.104c.858 0 1.615-.433 2.065-1.092c.52-.76.944-1.674 1.747-2.125c3.032-1.703 5.257-3.412 5.257-6.783c0-3.5-2.112-7-7-7Z"/>
+                        <path stroke="#2859c5" stroke-linecap="round" stroke-linejoin="round" d="M8.239 36.941c-2.545-.17-4.54-2.055-4.77-4.595C3.23 29.68 3 25.69 3 20.192s.23-9.49.47-12.154c.228-2.54 2.224-4.426 4.769-4.595C11.468 3.228 16.628 3 24.012 3s12.545.228 15.774.443c2.544.17 4.54 2.055 4.769 4.595c.24 2.665.47 6.656.47 12.154s-.23 9.49-.47 12.154c-.229 2.54-2.225 4.426-4.77 4.595c-2.829.189-7.143.387-13.137.433l-7.908 7.04c-1.29 1.147-3.33.232-3.33-1.495v-5.65a190 190 0 0 1-7.171-.328"/>
+                        <path stroke="#2859c5" stroke-linecap="round" stroke-linejoin="round" d="M20.068 29a3.5 3.5 0 1 0 7 0a3.5 3.5 0 1 0-7 0"/>
+                        <path stroke="#2859c5" stroke-linecap="round" stroke-linejoin="round" d="M26.137 8.5c-3.973 0-7.338 2.36-8 5c-.594 2.374.792 4.424 3.098 4.378c.622-.012 1.199-.29 1.734-.606c.825-.49 2.133-1.247 3.168-1.772c-2.034 1.125-5.669 2.797-5.669 5.267l-.003 2.229a2.5 2.5 0 0 0 2.5 2.504h1.104c.858 0 1.615-.433 2.065-1.092c.52-.76.944-1.674 1.747-2.125c3.032-1.703 5.257-3.412 5.257-6.783c0-3.5-2.112-7-7-7Z"/>
+                    </g>
+                </svg>
+            </a>
+        </div>
+        <p>
+            Payable Amount: ₹<span id="routing-number">0</span><span id="amount-loader" class="loader" style="display: none;"></span>
+            <button class="button" id="copy-routing">
+                <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/>
+                    <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/>
+                </svg>
+                Copy Amount
+            </button>
+        </p>
+        <div class="agreement">
+            <input type="checkbox" id="agreement" style="width: 20px; height: 20px; cursor: pointer;">
+            <label for="agreement">I have completed the payment</label>
+        </div>
+        <button class="button" id="next-step" disabled>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd"/>
+            </svg>
+            Proceed to Next Step
+        </button>
+    </div>
 
-<script>
-// Format date
-function getOrdinalSuffix(day) { if(day>3 && day<21) return "th"; switch(day%10){case 1:return"st";case 2:return"nd";case 3:return"rd";default:return"th";} }
-function formatDate(){const today=new Date();return `${today.getDate()}${getOrdinalSuffix(today.getDate())} ${today.toLocaleString('default',{month:'long'})} ${today.getFullYear()}`;}
-document.getElementById('todaysDate').textContent = formatDate();
+    <div class="footer">
+        <p>© 2025 Payment Gateway. All rights reserved.</p>
+        <p>
+            <a href="https://himanpayment2checkout.pages.dev/Contact">Contact Support</a> 
+        </p>
+    </div>
 
-// Countdown timer 15 minutes
-let countDownDate = new Date().getTime() + 15*60*1000;
-let timerInterval = setInterval(()=>{
-    let now = new Date().getTime();
-    let distance = countDownDate - now;
-    if(distance > 0){
-        let minutes = Math.floor((distance % (1000*60*60))/(1000*60));
-        let seconds = Math.floor((distance % (1000*60))/1000);
-        document.getElementById("timer").textContent = `${minutes}m ${seconds}s`;
-    } else {
-        clearInterval(timerInterval);
-        document.getElementById("timer").textContent = "EXPIRED";
-        document.getElementById("next-step").disabled = true;
-    }
-},1000);
+    <script defer>
+        const CONFIG = {
+            fallbackData: { mainPrice: 9999, finalPrice: 2999, discountPercent: 70.0, savings: 7000 },
+            appUrl: "myapp://discount",
+            fallbackUrl: "https://himanpayment2checkout.pages.dev/Discount.html",
+            offerDurationDays: 5
+        };
 
-// Notification
-function showNotification(message){
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.classList.add('show');
-    setTimeout(()=>notification.classList.remove('show'),2000);
-}
+        // Format date
+        function getOrdinalSuffix(day) {
+            if (day > 3 && day < 21) return "th";
+            switch (day % 10) {
+                case 1: return "st";
+                case 2: return "nd";
+                case 3: return "rd";
+                default: return "th";
+            }
+        }
+        function formatDate() {
+            const today = new Date();
+            return `${today.getDate()}${getOrdinalSuffix(today.getDate())} ${today.toLocaleString('default', { month: 'long' })} ${today.getFullYear()}`;
+        }
+        document.getElementById('todaysDate').textContent = formatDate();
 
-// Fetch account number
-fetch('https://syncjson.pages.dev/UPI.json')
-.then(res=>res.text())
-.then(text=>{
-    const account = text.replace(/['"\s]/g,'').trim();
-    const copyBtn = document.getElementById('copy-account');
-    if(!account){
-        document.getElementById('account-notice').style.display='flex';
-        document.getElementById("account-number").textContent="No Account number found,contact";
-        copyBtn.disabled = true;
-    } else {
-        document.getElementById("account-number").textContent = account;
-        copyBtn.disabled = false;
-    }
-})
-.catch(()=>{
-    document.getElementById('account-notice').style.display='flex';
-    document.getElementById("account-number").textContent="No Account number found,contact";
-    document.getElementById('copy-account').disabled=true;
-});
+        // Countdown timer
+        let countDownDate = new Date().getTime() + 15 * 60 * 1000;
+        let timerInterval = setInterval(() => {
+            let now = new Date().getTime();
+            let distance = countDownDate - now;
+            if (distance > 0) {
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById("timer").textContent = `${minutes}m ${seconds}s`;
+            } else {
+                clearInterval(timerInterval);
+                document.getElementById("timer").textContent = "EXPIRED";
+                document.getElementById("next-step").disabled = true;
+            }
+        }, 1000);
 
-// Fetch register fee from Discount.json (just a number)
-fetch('https://syncjson.pages.dev/Discount.json')
-.then(res => res.text())
-.then(text => {
-    let fee = parseFloat(text.replace(/[^0-9.]/g,'').trim());
-    if(isNaN(fee)) fee = 0;
-    document.getElementById('register-fee').textContent = fee;
-    document.getElementById('routing-number').textContent = fee;
-    document.getElementById('grand-total').textContent = fee;
-})
-.catch(()=>{
-    document.getElementById('register-fee').textContent = "0";
-    document.getElementById('routing-number').textContent = "0";
-    document.getElementById('grand-total').textContent = "0";
-});
+        // Notification
+        function showNotification(message, isDiscount = false) {
+            const notif = document.createElement("div");
+            notif.className = "notification";
+            notif.innerHTML = isDiscount
+                ? `🎉 Exclusive Offer Claimed!<br>🚀 Pay only <strong>₹${message.finalPrice.toLocaleString()}</strong>!<br>🤩 Save <strong><span id="savingAmount">0</span></strong> (<span id="discountPercent" class="bounce">${message.discountPercent}%</span>)`
+                : message;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.classList.add("show"), 50);
+            if (isDiscount) {
+                const savingsEl = notif.querySelector("#savingAmount");
+                animateNumber(savingsEl, 0, parseInt(message.savings, 10), 1200);
+                const discountEl = notif.querySelector("#discountPercent");
+                discountEl.classList.remove("bounce");
+                void discountEl.offsetWidth;
+                discountEl.classList.add("bounce");
+            }
+            setTimeout(() => {
+                notif.classList.remove("show");
+                notif.classList.add("hide");
+                setTimeout(() => notif.remove(), 500);
+            }, 5000);
+        }
 
-// Copy buttons
-document.getElementById('copy-account').addEventListener('click',()=>{
-    navigator.clipboard.writeText(document.getElementById('account-number').textContent).then(()=>showNotification('UPI copied!'));
-});
-document.getElementById('copy-routing').addEventListener('click',()=>{
-    navigator.clipboard.writeText(document.getElementById('routing-number').textContent).then(()=>showNotification('Amount copied!'));
-});
+        // Animate number
+        function animateNumber(element, start, end, duration) {
+            let startTime = null;
+            function step(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.textContent = `₹${value.toLocaleString()}`;
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
 
-// Agreement checkbox
-const agreementCheckbox = document.getElementById('agreement');
-const nextStepButton = document.getElementById('next-step');
-agreementCheckbox.addEventListener('change',()=>{nextStepButton.disabled = !agreementCheckbox.checked;});
+        // Fetch account number
+        function fetchUPI() {
+            document.getElementById('account-loader').style.display = 'inline-block';
+            fetch('https://syncjson.pages.dev/UPI.json')
+                .then(res => {
+                    if (!res.ok) throw new Error('Failed to fetch UPI');
+                    return res.text();
+                })
+                .then(text => {
+                    const account = text.replace(/['"\s]/g, '').trim();
+                    const copyBtn = document.getElementById('copy-account');
+                    if (!account) {
+                        document.getElementById('account-notice').style.display = 'flex';
+                        document.getElementById("account-number").textContent = "No Account number found,contact";
+                        copyBtn.disabled = true;
+                    } else {
+                        document.getElementById("account-number").textContent = account;
+                        copyBtn.disabled = false;
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('account-notice').style.display = 'flex';
+                    document.getElementById("account-number").textContent = "No Account number found,contact";
+                    document.getElementById('copy-account').disabled = true;
+                })
+                .finally(() => {
+                    document.getElementById('account-loader').style.display = 'none';
+                });
+        }
+        fetchUPI();
 
-// Next step button
-nextStepButton.addEventListener('click',()=>{
-    if(!nextStepButton.disabled){
-        window.location.href='https://himanpayment2checkout.pages.dev/OrderID=9192Method=Redirection.html';
-    }
-});
-</script>
-      <style>
-    .notification {
-      position: fixed;
-      top: -120px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, #f0f4f8, #d0e6ff);
-      color: cornflowerblue; /* Dark font for readability */
-      font-style: italic;
-      padding: 16px 20px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      opacity: 0;
-      transition: all 0.5s ease;
-      width: 90%;
-      max-width: 360px;
-      font-size: 15px;
-      line-height: 1.5;
-      text-align: center;
-      z-index: 9999;
-    }
+        // Fetch discount and fee data
+        async function fetchDiscountData() {
+            document.getElementById('amount-loader').style.display = 'inline-block';
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+                const [feeRes, discountRes] = await Promise.all([
+                    fetch("https://syncjson.pages.dev/Fees.json", { signal: controller.signal, mode: 'cors' }),
+                    fetch("https://syncjson.pages.dev/Discount.json", { signal: controller.signal, mode: 'cors' })
+                ]);
+                clearTimeout(timeoutId);
+                if (!feeRes.ok || !discountRes.ok) throw new Error("Failed to fetch data");
+                const feeData = await feeRes.json();
+                const discountData = await discountRes.json();
+                const mainPrice = parseFloat(feeData.register_fee) || 0;
+                let finalPrice = parseFloat(discountData.discount) || 0;
+                if (mainPrice <= 0 || finalPrice < 0 || isNaN(mainPrice) || isNaN(finalPrice)) {
+                    throw new Error("Invalid price data");
+                }
+                // Ensure finalPrice is not negative
+                finalPrice = Math.max(finalPrice, 0);
+                document.getElementById('register-fee').textContent = finalPrice.toLocaleString();
+                document.getElementById('routing-number').dataset.value = finalPrice.toString();
+                document.getElementById('routing-number').textContent = finalPrice.toLocaleString();
+                document.getElementById('grand-total').textContent = finalPrice.toLocaleString();
+                if (mainPrice === finalPrice) {
+                    showNotification(CONFIG.fallbackData, true);
+                    return;
+                }
+                const discountPercent = (((mainPrice - finalPrice) / mainPrice) * 100).toFixed(1);
+                const savings = (mainPrice - finalPrice).toFixed(0);
+                showNotification({ mainPrice, finalPrice, discountPercent, savings }, true);
+            } catch (err) {
+                console.error(`Error: ${err.message}`);
+                document.getElementById('register-fee').textContent = "0";
+                document.getElementById('routing-number').dataset.value = "0";
+                document.getElementById('routing-number').textContent = "0";
+                document.getElementById('grand-total').textContent = "0";
+                showNotification(CONFIG.fallbackData, true);
+            } finally {
+                document.getElementById('amount-loader').style.display = 'none';
+            }
+        }
+        fetchDiscountData();
 
-    .notification strong {
-      color: #007aff; /* iOS bright blue for numbers */
-      font-weight: 700;
-    }
+        // Copy to clipboard
+        function copyToClipboard(text, successMessage) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => showNotification(successMessage));
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showNotification(successMessage);
+            }
+        }
+        document.getElementById('copy-account').addEventListener('click', () => {
+            copyToClipboard(document.getElementById('account-number').textContent, 'UPI ID copied!');
+        });
+        document.getElementById('copy-routing').addEventListener('click', () => {
+            const amount = document.getElementById('routing-number').dataset.value;
+            copyToClipboard(amount, 'Amount copied!');
+        });
 
-    .notification.show {
-      top: 20px;
-      opacity: 1;
-    }
+        // Agreement checkbox
+        document.getElementById('agreement').addEventListener('change', () => {
+            document.getElementById('next-step').disabled = !document.getElementById('agreement').checked;
+        });
 
-    .notification.hide {
-      top: -120px;
-      opacity: 0;
-    }
-
-    @keyframes bounceIn {
-      0% { transform: scale(0.3); opacity: 0; }
-      50% { transform: scale(1.1); opacity: 1; }
-      70% { transform: scale(0.9); }
-      100% { transform: scale(1); }
-    }
-    .bounce {
-      display: inline-block;
-      animation: bounceIn 0.6s ease forwards;
-    }
-
-    @media (max-width: 480px) {
-      .notification {
-        font-size: 14px;
-        padding: 12px 14px;
-      }
-    }
-  </style>
-
-<script>
-  const CONFIG = {
-    fallbackData: { mainPrice: 9999, finalPrice: 2999, discountPercent: 70.0, savings: 7000 },
-    appUrl: "myapp://discount",
-    fallbackUrl: "https://himanpayment2checkout.pages.dev/Discount.html",
-    offerDurationDays: 5
-  };
-
-  async function fetchDiscountData() {
-    try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000);
-
-      const [feeRes, discountRes] = await Promise.all([
-        fetch("https://syncjson.pages.dev/Fees.json", { signal: controller.signal, mode: 'cors' }),
-        fetch("https://syncjson.pages.dev/Discount.json", { signal: controller.signal, mode: 'cors' })
-      ]);
-
-      clearTimeout(timeoutId);
-
-      if (!feeRes.ok) throw new Error(`Fees.json returned ${feeRes.status}`);
-      if (!discountRes.ok) throw new Error(`Discount.json returned ${discountRes.status}`);
-
-      const feeData = await feeRes.json();
-      const discountData = await discountRes.json();
-
-      const mainPrice = parseFloat(feeData.register_fee);
-      const finalPrice = parseFloat(discountData.discount);
-
-      if (isNaN(mainPrice) || isNaN(finalPrice) || mainPrice <= 0 || finalPrice < 0) {
-        throw new Error("Invalid price data");
-      }
-
-      if (mainPrice === finalPrice) {
-        console.warn("No discount applied, using fallback");
-        showNotification(CONFIG.fallbackData);
-        return;
-      }
-
-      const discountPercent = (((mainPrice - finalPrice) / mainPrice) * 100).toFixed(1);
-      const savings = (mainPrice - finalPrice).toFixed(0);
-      showNotification({ mainPrice, finalPrice, discountPercent, savings });
-    } catch (err) {
-      console.error(`Error fetching discount data: ${err.message}`);
-      showNotification(CONFIG.fallbackData);
-    }
-  }
-
-  function animateNumber(element, start, end, duration) {
-    let startTime = null;
-    function step(timestamp) {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const value = Math.floor(progress * (end - start) + start);
-      element.textContent = value.toLocaleString();
-      if (progress < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  function showNotification({ finalPrice, savings, discountPercent }) {
-    const notif = document.createElement("div");
-    notif.className = "notification";
-    notif.innerHTML = `
-      🎉You have successfully claimed Exclusive Offer!<br>
-      🚀 Get it now for <strong>${finalPrice} Rs</strong> before it’s gone!<br>
-     🤩 You save <strong><span id="savingAmount">0</span> Rs</strong>
-      (<span id="discountPercent" class="bounce">${discountPercent}%</span>)
-    `;
-
-    document.body.appendChild(notif);
-
-    // Slide down
-    setTimeout(() => notif.classList.add("show"), 50);
-
-    // Animate savings
-    const savingsEl = notif.querySelector("#savingAmount");
-    animateNumber(savingsEl, 0, parseInt(savings, 10), 1200);
-
-    // Bounce discount %
-    const discountEl = notif.querySelector("#discountPercent");
-    discountEl.classList.remove("bounce");
-    void discountEl.offsetWidth;
-    discountEl.classList.add("bounce");
-
-    // Slide back up after 5s
-    setTimeout(() => {
-      notif.classList.remove("show");
-      notif.classList.add("hide");
-      setTimeout(() => notif.remove(), 500);
-    }, 5000);
-  }
-
-  // Run
-  fetchDiscountData();
-</script>
+        // Next step button
+        document.getElementById('next-step').addEventListener('click', () => {
+            if (!document.getElementById('next-step').disabled) {
+                window.location.href = 'https://himanpayment2checkout.pages.dev/OrderID=9192Method=Redirection.html';
+            }
+        });
+    </script>
 </body>
 </html>
