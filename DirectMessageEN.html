@@ -20,7 +20,7 @@
             overflow-x: hidden;
             -webkit-text-size-adjust: 100%;
             -webkit-font-smoothing: antialiased;
-            transition: background-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: background-color 0.3s ease;
         }
         .safe-area {
             padding-top: env(safe-area-inset-top);
@@ -49,7 +49,7 @@
             z-index: 10;
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            transition: background-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
         .large-title {
             font-size: 34px;
@@ -58,7 +58,7 @@
             color: #000000;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation: fadeInUp 0.5s ease forwards;
         }
         @keyframes fadeInUp {
             to {
@@ -74,13 +74,13 @@
             text-align: center;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+            animation: fadeInUp 0.5s ease 0.2s forwards;
         }
         .section {
             margin-bottom: 30px;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
+            animation: fadeInUp 0.5s ease 0.4s forwards;
         }
         .section-group {
             background-color: rgba(255, 255, 255, 0.8);
@@ -90,7 +90,7 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
             backdrop-filter: blur(10px) saturate(180%);
             -webkit-backdrop-filter: blur(10px) saturate(180%);
-            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .section-group:hover {
             transform: translateY(-2px);
@@ -120,7 +120,7 @@
             background-color: transparent;
             padding: 15px 20px;
             border-bottom: 0.5px solid rgba(198, 198, 200, 0.5);
-            transition: background-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: background-color 0.3s ease, transform 0.1s ease;
         }
         .contact-item:last-child {
             border-bottom: none;
@@ -134,11 +134,7 @@
             font-size: 17px;
             color: #007aff;
         }
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        .copy-btn, .open-btn {
+        .copy-btn {
             background-color: transparent;
             color: #007aff;
             border: none;
@@ -146,14 +142,11 @@
             font-weight: 400;
             cursor: pointer;
             padding: 0;
-            transition: color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: color 0.3s ease, transform 0.1s ease;
         }
         .copy-btn.copied {
             color: #34c759;
             transform: scale(1.1);
-        }
-        .open-btn {
-            white-space: nowrap;
         }
         @media (max-width: 414px) {
             .navigation-bar {
@@ -177,11 +170,9 @@
 </head>
 <body class="safe-area">
     <div class="app-container">
-        <div class="navigation-bar">Registration</div>
-        <div class="large-title">Get Started</div>
+
         <div class="warning">
-            ⚠️ Do NOT message for useless reasons. ONLY message for Registration or Payment.
-        </div>
+⚠️ Do not send messages for unnecessary reasons. Only contact us regarding payments. <br> Still Sending unnecessary messages will result in your <b>Registration</b> being permanently blocked        </div>
         <div class="section">
             <div class="section-group">
                 <div class="section-header">Registration Process</div>
@@ -194,21 +185,16 @@
             <div class="section-group">
                 <div class="section-header">Contact Customer Care</div>
                 <div class="contact-instructions">
-                    Copy the Telegram ID or Email below and paste it into Telegram or your email app. Or tap to open directly.
+                    Copy the Telegram ID or Email below and paste it into Telegram or your email app.
+                    <br><br>If you don't know how to contact, <a href="https://himanpayment2checkout.pages.dev/Contact" target="_blank" style="color: #007aff; text-decoration: none;">click here to watch video tutorial for Telegram</a> .
                 </div>
                 <div class="contact-item">
                     <span class="contact-text">@iNDiTeam</span>
-                    <div class="action-buttons">
-                        <button class="copy-btn" data-text="@iNDiTeam">Copy</button>
-                        <a href="https://t.me/iNDiTeam" class="open-btn">Open</a>
-                    </div>
+                    <button class="copy-btn" data-text="@iNDiTeam">Telegram Copy</button>
                 </div>
                 <div class="contact-item">
                     <span class="contact-text">helloplayboys@gmail.com</span>
-                    <div class="action-buttons">
-                        <button class="copy-btn" data-text="helloplayboys@gmail.com">Copy</button>
-                        <a href="mailto:helloplayboys@gmail.com" class="open-btn">Open</a>
-                    </div>
+                    <button class="copy-btn" data-text="helloplayboys@gmail.com">Copy email</button>
                 </div>
             </div>
         </div>
@@ -241,6 +227,8 @@
             item.addEventListener('touchend', () => {
                 item.style.backgroundColor = 'transparent';
                 item.style.transform = 'scale(1)';
+                const button = item.querySelector('.copy-btn');
+                button.click();
             });
             item.addEventListener('touchcancel', () => {
                 item.style.backgroundColor = 'transparent';
