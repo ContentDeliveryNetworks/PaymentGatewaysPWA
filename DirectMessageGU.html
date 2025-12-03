@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>રજીસ્ટ્રેશન</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f2f2f7;
+            margin: 0;
+            padding: 0;
+            color: #1c1c1e;
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease;
+        }
+        .safe-area {
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+        .app-container {
+            max-width: 100%;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .navigation-bar {
+            background-color: rgba(242, 242, 247, 0.8);
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+            color: #000000;
+            border-bottom: 0.5px solid rgba(198, 198, 200, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .large-title {
+            font-size: 34px;
+            font-weight: 700;
+            margin: 20px 20px 10px;
+            color: #000000;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .warning {
+            font-size: 16px;
+            font-weight: 500;
+            color: #ff3b30;
+            margin: 20px 20px 30px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease 0.2s forwards;
+        }
+        .section {
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease 0.4s forwards;
+        }
+        .section-group {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 18px;
+            overflow: hidden;
+            margin: 0 10px 20px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px) saturate(180%);
+            -webkit-backdrop-filter: blur(10px) saturate(180%);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .section-group:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .section-header {
+            font-size: 13px;
+            font-weight: 600;
+            color: #8e8e93;
+            text-transform: uppercase;
+            padding: 10px 20px 5px;
+        }
+        .process-text {
+            font-size: 17px;
+            color: #3c3c43;
+            padding: 15px 20px;
+        }
+        .contact-instructions {
+            font-size: 17px;
+            color: #3c3c43;
+            padding: 0 20px 15px;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: transparent;
+            padding: 15px 20px;
+            border-bottom: 0.5px solid rgba(198, 198, 200, 0.5);
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+        .contact-item:active {
+            background-color: rgba(212, 212, 216, 0.5);
+            transform: scale(0.98);
+        }
+        .contact-text {
+            flex: 1;
+            font-size: 17px;
+            color: #007aff;
+        }
+        .copy-btn {
+            background-color: transparent;
+            color: #007aff;
+            border: none;
+            font-size: 17px;
+            font-weight: 400;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease, transform 0.1s ease;
+        }
+        .copy-btn.copied {
+            color: #34c759;
+            transform: scale(1.1);
+        }
+        @media (max-width: 414px) {
+            .navigation-bar {
+                font-size: 17px;
+                padding: 10px 15px;
+            }
+            .large-title {
+                font-size: 28px;
+                margin: 15px 15px 10px;
+            }
+            .section-group {
+                margin: 0 0 20px;
+                border-radius: 0;
+            }
+            .process-text, .contact-instructions, .contact-item {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="safe-area">
+    <div class="app-container">
+
+        <div class="warning">
+⚠️ અનવશ્યક કારણો માટે સંદેશા ન મોકલો. ફક્ત ચુકવણી સંબંધિત સંપર્ક માટે મોકલો. <br> જો તમે હજુ પણ અનવશ્યક સંદેશા મોકલશો, તો તમારી <b>રજીસ્ટ્રેશન</b> કાયમ માટે બ્લોક થઇ જશે.
+        </div>
+        <div class="section">
+            <div class="section-group">
+                <div class="section-header">રજીસ્ટ્રેશન પ્રક્રિયા</div>
+                <div class="process-text">
+                    સૌપ્રથમ અમારી કસ્ટમર કેર સાથે સંપર્ક કરી રજીસ્ટ્રેશન ફી ભરો. ચુકવણી પછી, તમને સત્તાવાર રજીસ્ટ્રેશન ફોર્મ લિંક મળશે. તમારા વિગતવાર માહિતી ફોર્મમાં ભરો. રજીસ્ટ્રેશન થયા પછી, અમે તમને યૂઝર ID & પાસવર્ડ આપશું.
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-group">
+                <div class="section-header">કસ્ટમર કેરનો સંપર્ક કરો</div>
+                <div class="contact-instructions">
+                    નીચે આપેલ ટેલિગ્રામ ID અથવા ઇમેઇલને કૉપી કરીને તમારા ટેલિગ્રામ અથવા ઇમેઇલ એપમાં પેસ્ટ કરો.
+                    <br><br>સંપર્ક કરવા માટે કેવી રીતે કરવું તે ન જાણતા હોવ તો, <a href="https://himanpayment2checkout.pages.dev/Contact" target="_blank" style="color: #007aff; text-decoration: none;">અહીં ટેલિગ્રામ વિડિયો ટ્યુટોરીયલ જુઓ</a>.
+                </div>
+                <div class="contact-item">
+                    <span class="contact-text">@iNDiTeam</span>
+                    <button class="copy-btn" data-text="@iNDiTeam">ટેલિગ્રામ ID કૉપી કરો</button>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-text">helloplayboys@gmail.com</span>
+                    <button class="copy-btn" data-text="helloplayboys@gmail.com">ઇમેઇલ કૉપી કરો</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const copyButtons = document.querySelectorAll('.copy-btn');
+        copyButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const textToCopy = button.getAttribute('data-text');
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    button.textContent = 'કૉપી થઈ ગયું';
+                    button.classList.add('copied');
+                    setTimeout(() => {
+                        button.textContent = button.getAttribute('data-text').includes('@') ? 'ટેલિગ્રામ ID કૉપી કરો' : 'ઇમેઇલ કૉપી કરો';
+                        button.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('કૉપી નિષ્ફળ થયું:', err);
+                });
+            });
+        });
+
+        const contactItems = document.querySelectorAll('.contact-item');
+        contactItems.forEach(item => {
+            item.addEventListener('touchstart', () => {
+                item.style.backgroundColor = 'rgba(212, 212, 216, 0.5)';
+                item.style.transform = 'scale(0.98)';
+            });
+            item.addEventListener('touchend', () => {
+                item.style.backgroundColor = 'transparent';
+                item.style.transform = 'scale(1)';
+            });
+            item.addEventListener('touchcancel', () => {
+                item.style.backgroundColor = 'transparent';
+                item.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
