@@ -435,72 +435,127 @@
         .modal-content button { width: 100%; padding: 12px 0; }
     }
 </style>
+<style>.image-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
 
-<!-- Modal -->
-<div class="modal" id="instructionModal">
-    <div class="modal-content" id="modalContent">
-        <h2>guideline</h2>
-      
+.image-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+</style>
+<!-- ========== GUIDELINE 1 ========== -->
+<div class="modal" id="modal-1">
+    <div class="modal-content">
+        <h2>instraction of <br>How to PAY Register FEES</h2>
+
         <ol>
-            <li>Copy the UPI ID and make the payment.</li>
-            <li>Check that the UPI ID and amount are correct.</li>
-            <li>Take a full screenshot of the successful payment.</li>
-            <li>Take a screenshot of the <strong>successful payment</strong>.</li>
-            <li>Click  <strong>"Proceed to Next Step"</strong></li>
-             <li>Wait for the timer, then click <strong>Proceed to Upload.</strong></li>
-             <li>Upload your payment screenshot.</li>
-                          <p style="color:red;">Upload only the genuine, original payment confirmation screenshot. Do NOT upload your photo, and do NOT upload any fake, edited, filtered, or modified screenshot. Any altered proof will lead to automatic rejection </p>
+            <li><strong>Find the UPI ID </strong>shown in the Payment Details section of the page.</li>
+            <li><strong>Copy the UPI ID</strong> to your clipboard.</li>
+                        <li>Open your preferred <strong>UPI payment app</strong> (such as Google Pay, PhonePe, Paytm,<strong>Phonepe Recomended</strong> etc.)</li>
+            <li>Select the option to <strong>Send Money / Transfer Money</strong>.</li>
+                 <li><strong>Enter the exact amount</strong> shown on this page.</li>
+                           <li>Confirm & <strong>complete the payment</strong>.</li>
+                                <li><strong>when payment is successful  take screenshot</strong></li>
         </ol>
 
-        <button id="closeModal">Got it!</button>
+        <button class="next-btn">Understood!</button>
+    </div>
+</div>
+
+<div class="modal" id="modal-2">
+    <div class="modal-content">
+        <h2>instraction of <br>How to Submit Payment Proof</h2>
+
+        <!-- 2×2 Image Grid -->
+        <div class="image-grid">
+            <img src="https://himanpayment2checkout.pages.dev/1.png">
+            <img src="https://himanpayment2checkout.pages.dev/instraction.jpg">
+        </div>
+
+        <ol>
+            <li><strong>Upload only the original, unedited payment screenshot.
+                in top we share some example image , that might be help you
+            </strong></li>
+         
+            <p style="color:red;">Upload only the genuine, original payment confirmation screenshot. Do NOT upload your photo, and do NOT upload any fake, edited, filtered, or modified screenshot. Any altered proof will lead to automatic rejection </p>
+        </ol>
+
+        <button class="next-btn">Ready to Pay!</button>
     </div>
 </div>
 
 
 <script>
-const modal = document.getElementById('instructionModal');
-const modalContent = document.getElementById('modalContent');
-const closeBtn = document.getElementById('closeModal');
+const modals = document.querySelectorAll('.modal');
+let currentModal = 0;
 
-// Show modal 1 second after page load
+// Start: open first modal after 1 second
 window.onload = () => {
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 1000);
+    setTimeout(() => openModal(0), 1000);
 };
 
-// Close modal function
-function closeModal() {
-    modal.classList.remove('active');
-    modalContent.style.transform = 'translateY(100%)';
+function openModal(index) {
+    modals[index].classList.add('active');
 }
 
-// Close modal only with button
-closeBtn.addEventListener('click', closeModal);
+function closeModal(index) {
+    const m = modals[index];
+    const content = m.querySelector('.modal-content');
 
-// Swipe down to close
-let startY = 0;
-modalContent.addEventListener('touchstart', e => startY = e.touches[0].clientY);
+    m.classList.remove('active');
+    content.style.transform = 'translateY(100%)';
+}
 
-modalContent.addEventListener('touchmove', e => {
-    let moveY = e.touches[0].clientY - startY;
-    if (moveY > 0) {
-        modalContent.style.transform = `translateY(${moveY}px)`;
-        modalContent.style.opacity = `${1 - moveY / 300}`;
-    }
+// Handle "Got it!" button
+document.querySelectorAll('.next-btn').forEach((btn, index) => {
+    btn.addEventListener('click', () => {
+        closeModal(index);
+
+        // Open next modal if exists
+        if (modals[index + 1]) {
+            setTimeout(() => openModal(index + 1), 300);
+        }
+    });
 });
 
-modalContent.addEventListener('touchend', e => {
-    let moveY = e.changedTouches[0].clientY - startY;
-    if (moveY > 100) {
-        closeModal();
-    } else {
-        modalContent.style.transform = 'translateY(0)';
-        modalContent.style.opacity = '1';
-    }
+// Swipe down close (works for all modals)
+modals.forEach((modal, index) => {
+    const modalContent = modal.querySelector('.modal-content');
+
+    let startY = 0;
+
+    modalContent.addEventListener('touchstart', e => startY = e.touches[0].clientY);
+
+    modalContent.addEventListener('touchmove', e => {
+        let moveY = e.touches[0].clientY - startY;
+        if (moveY > 0) {
+            modalContent.style.transform = `translateY(${moveY}px)`;
+            modalContent.style.opacity = `${1 - moveY / 300}`;
+        }
+    });
+
+    modalContent.addEventListener('touchend', e => {
+        let moveY = e.changedTouches[0].clientY - startY;
+        if (moveY > 100) {
+            closeModal(index);
+
+            // Open next modal if exists
+            if (modals[index + 1]) {
+                setTimeout(() => openModal(index + 1), 300);
+            }
+        } else {
+            modalContent.style.transform = 'translateY(0)';
+            modalContent.style.opacity = '1';
+        }
+    });
 });
 </script>
-<script async src="https://tally.so/widgets/embed.js"></script>
 
 
 
