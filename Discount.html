@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -354,6 +355,154 @@
             <a href="https://himanpayment2checkout.pages.dev/Contact">Contact Support</a> 
         </p>
     </div>
+
+<style>
+    .modal {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        backdrop-filter: blur(5px);
+        background: rgba(0,0,0,0.4);
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 1000;
+    }
+    .modal.active { opacity: 1; pointer-events: auto; }
+
+        .modal-content h3 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #28a745; /* green color for emphasis */
+        font-size: 1.25rem;
+        text-align: left;
+    }
+
+    .modal-content ol {
+        padding-left: 20px;
+        color: #333;
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .modal-content ol li {
+        margin-bottom: 10px;
+    }
+
+    .modal-content ol li strong {
+        color: #007BFF; /* highlight buttons/important text */
+        .modal-content ol li b {
+    color: #007BFF !important;
+}
+
+    }
+    /* Modal content */
+    .modal-content {
+        background: #fff;
+        width: 100%; max-width: 480px;
+        border-radius: 16px 16px 0 0;
+        padding: 20px;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+        transform: translateY(100%);
+        animation: slideUp 0.3s forwards;
+        touch-action: none;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+    .modal-content h2 { margin-bottom: 15px; color: #007BFF; font-size: 1.5rem; text-align: center; }
+    .modal-content p { margin-bottom: 20px; color: #555; font-size: 1rem; line-height: 1.4; text-align: center; }
+    .modal-content button {
+        background: #007BFF;
+        color: #fff;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s;
+        display: block;
+        margin: 0 auto;
+    }
+    .modal-content button:hover { background: #0056b3; }
+
+    @media (max-width: 480px) {
+        .modal-content h2 { font-size: 1.3rem; }
+        .modal-content p { font-size: 0.95rem; }
+        .modal-content button { width: 100%; padding: 12px 0; }
+    }
+</style>
+
+<!-- Modal -->
+<div class="modal" id="instructionModal">
+    <div class="modal-content" id="modalContent">
+        <h2>guideline</h2>
+      
+        <ol>
+            <li>Copy the UPI ID and make the payment.</li>
+            <li>Check that the UPI ID and amount are correct.</li>
+            <li>Take a full screenshot of the successful payment.</li>
+            <li>Take a screenshot of the <strong>successful payment</strong>.</li>
+            <li>Click  <strong>"Proceed to Next Step"</strong></li>
+             <li>Wait for the timer, then click <strong>Proceed to Upload.</strong></li>
+             <li>Upload your payment screenshot.</li>
+                          <p style="color:red;">Upload only the genuine, original payment confirmation screenshot. Do NOT upload your photo, and do NOT upload any fake, edited, filtered, or modified screenshot. Any altered proof will lead to automatic rejection </p>
+        </ol>
+
+        <button id="closeModal">Got it!</button>
+    </div>
+</div>
+
+
+<script>
+const modal = document.getElementById('instructionModal');
+const modalContent = document.getElementById('modalContent');
+const closeBtn = document.getElementById('closeModal');
+
+// Show modal 1 second after page load
+window.onload = () => {
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 1000);
+};
+
+// Close modal function
+function closeModal() {
+    modal.classList.remove('active');
+    modalContent.style.transform = 'translateY(100%)';
+}
+
+// Close modal only with button
+closeBtn.addEventListener('click', closeModal);
+
+// Swipe down to close
+let startY = 0;
+modalContent.addEventListener('touchstart', e => startY = e.touches[0].clientY);
+
+modalContent.addEventListener('touchmove', e => {
+    let moveY = e.touches[0].clientY - startY;
+    if (moveY > 0) {
+        modalContent.style.transform = `translateY(${moveY}px)`;
+        modalContent.style.opacity = `${1 - moveY / 300}`;
+    }
+});
+
+modalContent.addEventListener('touchend', e => {
+    let moveY = e.changedTouches[0].clientY - startY;
+    if (moveY > 100) {
+        closeModal();
+    } else {
+        modalContent.style.transform = 'translateY(0)';
+        modalContent.style.opacity = '1';
+    }
+});
+</script>
+<script async src="https://tally.so/widgets/embed.js"></script>
+
+
 
     <script defer>
         const CONFIG = {
