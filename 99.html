@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Open Telegram Link in Chrome</title>
+</head>
+<body style="display:flex;justify-content:center;align-items:center;height:100vh;background:#f2f2f2;font-family:Arial;">
+
+    <button id="openBtn"
+        style="padding:16px 32px;font-size:18px;background:#1a73e8;color:white;border:none;border-radius:8px;cursor:pointer;">
+        Open Telegram Link
+    </button>
+
+<script>
+document.getElementById("openBtn").addEventListener("click", function () {
+
+    var targetUrl = "https://t.me/haisdd";
+    var isAndroid = /Android/i.test(navigator.userAgent);
+
+    if (isAndroid) {
+
+        var intentUrl = "intent://t.me/haisdd#Intent;" +
+            "scheme=https;" +
+            "package=com.android.chrome;" +
+            "S.browser_fallback_url=https://play.google.com/store/apps/details?id=com.android.chrome;" +
+            "end";
+
+        // Try opening Chrome
+        window.location.href = intentUrl;
+
+        // Safety fallback if intent fails silently
+        setTimeout(function () {
+            window.location.href = "https://play.google.com/store/apps/details?id=com.android.chrome";
+        }, 2000);
+
+    } else {
+        // Non-Android fallback
+        window.location.href = targetUrl;
+    }
+
+});
+</script>
+
+</body>
+</html>
