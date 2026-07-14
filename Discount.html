@@ -1,0 +1,399 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Registration Guide</title>
+    
+    <style>
+        /* === iOS SYSTEM GLOBALS & TYPOGRAPHY === */
+        :root {
+            --ios-blue: #007AFF;
+            --ios-green: #34C759;
+            --ios-text-primary: #000000;
+            --ios-text-secondary: rgba(60, 60, 67, 0.6);
+            --ios-divider: rgba(60, 60, 67, 0.29);
+            --ios-glass-bg: rgba(255, 255, 255, 0.55);
+            --ios-glass-border: rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #F2F2F7;
+            color: var(--ios-text-primary);
+            min-height: 100vh;
+            padding: 0 16px 120px 16px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* === FLUID iOS MESH GRADIENT BACKGROUND === 
+           (Necessary to give the glass effect depth and color to blur) */
+        .ambient-background {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 15% 50%, rgba(200, 220, 255, 0.8), transparent 50%),
+                        radial-gradient(circle at 85% 30%, rgba(255, 210, 230, 0.8), transparent 50%),
+                        radial-gradient(circle at 50% 80%, rgba(220, 240, 255, 0.8), transparent 50%);
+            background-color: #F2F2F7;
+            animation: ambientShift 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes ambientShift {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.1) translate(-20px, 20px); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            padding-top: 60px; /* Space for safe area */
+        }
+
+        /* === TRUE LUCID GLASS MATERIAL === */
+        .ios-material {
+            background: var(--ios-glass-bg);
+            /* Exact Apple blur and saturation values for UI materials */
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            backdrop-filter: blur(40px) saturate(200%);
+            border: 0.5px solid var(--ios-glass-border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            border-radius: 20px;
+        }
+
+        /* === ANIMATIONS (Buttery Apple Springs) === */
+        .spring-enter {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            animation: springUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.25s; }
+
+        @keyframes springUp {
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* === AMOUNT HEADER === */
+        .header-card {
+            text-align: center;
+            color: #4495FF;
+            padding: 32px 20px;
+            margin-bottom: 32px;
+        }
+        .header-card h1 {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+               color: red;
+            margin-bottom: 8px;
+        }
+        .amount-display {
+            font-size: 48px;
+            font-weight: 700;
+            color: dodgerblue;
+            letter-spacing: -0.04em; /* Tight letter spacing like iOS large titles */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .currency {
+            font-size: 40px;
+            font-weight: 500;
+                        color: #34C759;
+            transform: translateY(-4px);
+        }
+
+        /* === iOS INSET GROUPED LIST === */
+        .section-header{
+            font-size: 48px;
+            font-weight: 700;
+            color: dodgerblue;
+            letter-spacing: -0.04em; /* Tight letter spacing like iOS large titles */
+          
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+      
+
+        .list-card {
+            padding: 0;
+            overflow: hidden; /* Clips the child elements to the rounded corners */
+        }
+
+        .list-row {
+            display: flex;
+            align-items: flex-start;
+            padding: 16px;
+            position: relative;
+        }
+
+        /* Hairline divider that starts after the icon (Exact iOS behavior) */
+        .list-row:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 56px; /* Offset to align with text */
+            right: 0;
+            height: 0.5px;
+            background-color: var(--ios-divider);
+        }
+
+        .row-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #4495FF, #007AFF);
+            color: #fff;
+            border-radius: 9px; /* Continuous curve squircle approximation */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-right: 16px;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+        }
+
+        .row-text h3 {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 2px;
+          color: var(--ios-green);
+        }
+        
+        .row-text p {
+            font-size: 15px;
+            line-height: 1.4;
+            color: dodgerblue;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+        
+        .row-text strong {
+            color: var(--ios-blue);
+            font-weight: 600;
+        }
+
+        /* === FLOATING PILL BUTTON === */
+        .fab-container {
+            position: fixed;
+            bottom: 32px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 0 24px;
+            z-index: 1000;
+            pointer-events: none; /* Allows clicking through container */
+        }
+
+        .fab-button {
+            pointer-events: auto;
+            background: rgba(255, 255, 255, 0.7);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            backdrop-filter: blur(40px) saturate(200%);
+            border: 0.5px solid rgba(255, 255, 255, 0.9);
+            color: var(--ios-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 18px 32px;
+            border-radius: 50px;
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.2s ease;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        /* iOS Active Touch State */
+        .fab-button:active {
+            transform: scale(0.95);
+            background: rgba(230, 230, 235, 0.8);
+        }
+
+        .fab-button svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        /* === NATIVE iOS SPINNER === */
+        .spinner {
+            width: 28px;
+            height: 28px;
+            border: 3px solid rgba(60, 60, 67, 0.1);
+            border-top-color: var(--ios-text-secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* === RESPONSIVE TWEAKS === */
+        @media (max-height: 700px) {
+            .container { padding-top: 30px; }
+            .header-card { margin-bottom: 24px; padding: 24px 20px; }
+            .amount-display { font-size: 40px; }
+            .fab-container { bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-background"></div>
+
+
+        
+
+
+            </div>
+        </div>
+
+        <h2 class="section-header spring-enter delay-2">New <br>Registration Guide</h2>
+
+        <div class="ios-material list-card spring-enter delay-2">
+            
+            <div class="list-row">
+                <div class="row-icon">1</div>
+                <div class="row-text">
+                    <h3>Payment Fees</h3>
+<p>Contact our Telegram Customer Support for a new registration.
+
+Get the Registration Fee Payment Account from Telegram Customer Support.
+
+Pay the Registration Fee. Pay the exact amount shown below.
+
+After payment, send the payment success screenshot to Telegram Customer Support.</p>                </div>
+            </div>
+
+            <div class="list-row">
+                <div class="row-icon">2</div>
+                <div class="row-text">
+                    <h3>Verify Payment</h3>
+                    <p>Telegram Customer Support will verify your payment.
+
+After payment verification, Telegram Customer Support will send you a Registration Form or a Registration Link.</p>
+                </div>
+            </div>
+
+            <div class="list-row">
+                <div class="row-icon">3</div>
+                <div class="row-text">
+                    <h3>Submit Registration Form</h3>
+                     <p>Fill in all required information, such as your name, address, and phone number.
+
+Submit the Registration Form.</p>
+                </div>
+            </div>
+
+            <div class="list-row">
+                <div class="row-icon">4</div>
+                <div class="row-text">
+                    <h3>Ready to start</h3>
+                   <p>Wait for Telegram Customer Support to complete your registration.
+
+You will receive your Login ID and Password.
+
+Log in to our app and activate your account.
+
+Now you are ready to start.</p>
+                </div>
+            </div>
+        <div class="ios-material header-card spring-enter delay-1">
+            <h1>Total Payable FEES</h1>
+            <div class="amount-display">
+                <span class="currency">₹</span>
+                <span id="payable-amount"></span>
+                <div id="amount-loader" class="spinner"></div>
+            </div>
+        </div>
+
+        </div>
+    </main>
+
+    <div class="fab-container spring-enter delay-2">
+        <a href="https://himanpayment2checkout.pages.dev/Contact" target="_blank" class="fab-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2C6.486 2 2 5.589 2 10c0 2.908 1.897 5.516 5 6.934V22l4.34-2.604c.845.249 1.744.384 2.66.384 5.514 0 10-3.589 10-8s-4.486-8-10-8zm0 14c-.814 0-1.614-.112-2.378-.323l-2.736 1.642v-2.827c-2.392-1.258-3.886-3.414-3.886-5.834 0-3.309 3.589-6 8-6s8 2.691 8 6-3.589 6-8 6z"></path>
+            </svg>
+            Contact Support
+        </a>
+    </div>
+
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+    fetchAmount();
+});
+
+async function fetchAmount() {
+    const loader = document.getElementById("amount-loader");
+    const amountElement = document.getElementById("payable-amount");
+
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+        const response = await fetch("https://syncjson.pages.dev/Discount.json", {
+            method: "GET",
+            mode: "cors",
+            cache: "no-cache",
+            signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Read amount from JSON and add 1
+        const amount = Number(data.discount) || 0;
+        const totalAmount = amount + 1;
+
+        if (loader) loader.style.display = "none";
+        if (amountElement) {
+            amountElement.textContent = totalAmount.toLocaleString("en-IN");
+        }
+
+    } catch (error) {
+        console.error("Amount fetch failed:", error);
+
+        // Fallback amount (2999 + 1 = 3000)
+        if (loader) loader.style.display = "none";
+        if (amountElement) {
+            amountElement.textContent = "3,000";
+        }
+    }
+}
+</script>
+<div class="gtranslate_wrapper"></div>
+<script>window.gtranslateSettings = {"default_language":"en","native_language_names":true,"languages":["en","ml","te","ta","bn","hi","mr","gu","ur","kn","pa"],"wrapper_selector":".gtranslate_wrapper","switcher_horizontal_position":"right","switcher_vertical_position":"top","flag_style":"3d","alt_flags":{"en":"usa"}}</script>
+<script src="https://cdn.gtranslate.net/widgets/latest/float.js" defer></script>
+</body>
+</html>
